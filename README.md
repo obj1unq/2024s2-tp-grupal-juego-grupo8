@@ -2,17 +2,19 @@
 
 ## Equipo de desarrollo
 
-- Alguien
-- Persona
-- etc.
+Arroyo, Diego
+Fabeiro, Leandro
+Ruiz, Jeremias
 
 ## Capturas
 
-(agregar)
+![image](https://github.com/user-attachments/assets/0d110bbc-4271-4bef-83ca-cf3d37623b35)
+
 
 ## Reglas de Juego / Instrucciones
 
-(Escribirlas)
+Ejemplo del juego Sokoban hecho con Wollok-Game. El personaje principal puede moverse hacia arriba, abajo, derecha o izquierda. 
+Si tiene una caja puede moverla si avanzando la caja tiene un lugar libre
 
 
 ## Otros
