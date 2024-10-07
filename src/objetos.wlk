@@ -5,7 +5,6 @@ import posiciones.*
 //BOTON
 class Boton {
     const property position
-    var property color = rojo
 
     method image() {
             return "boton_" + self.estado().color() + ".png"
