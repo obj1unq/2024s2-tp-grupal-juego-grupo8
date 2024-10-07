@@ -27,11 +27,11 @@ class Boton {
 }
 
 object presionado {
-    method color() { return "rojo" }
+    method color() { return "verde" }
 }
 
 object noPresionado {
-    method color() { return "verde" }
+    method color() { return "rojo" }
 }
 
 //CAJA
