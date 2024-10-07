@@ -2,9 +2,9 @@
 
 ## Equipo de desarrollo
 
-Arroyo, Diego
-Fabeiro, Leandro
-Ruiz, Jeremias
+- Arroyo, Diego
+- Fabeiro, Leandro
+- Ruiz, Jeremias
 
 ## Capturas
 
