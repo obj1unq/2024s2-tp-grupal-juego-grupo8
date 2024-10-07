@@ -8,17 +8,31 @@ class Boton {
     var property color = rojo
 
     method image() {
-        return "boton_" + color.toString() + ".png"
+            return "boton_" + self.estado().color() + ".png"
+    }
+
+    method estado() {
+        return if (self.estaPresionado()) presionado else noPresionado
+    }
+
+    method estaPresionado() {
+        return game.getObjectsIn(position).any({obj => obj.puedePresionar()})
     }
 
     method esAtravesable() { return true }
 
     method esDesplazable() { return false }
+
+    method puedePresionar() { return false }
 }
 
-object rojo {}
+object presionado {
+    method color() { return "rojo" }
+}
 
-object verde {}
+object noPresionado {
+    method color() { return "verde" }
+}
 
 //CAJA
 class Caja {
@@ -32,6 +46,8 @@ class Caja {
     method esAtravesable() { return false }
 
     method esDesplazable() { return true }
+
+    method puedePresionar() { return true }
 
     method desplazar(direccion) {
         const siguiente = direccion.siguiente(position)
@@ -59,4 +75,6 @@ class Muro {
     method esAtravesable() { return false }
 
     method esDesplazable() { return false }
+
+    method puedePresionar() { return false }
 }
