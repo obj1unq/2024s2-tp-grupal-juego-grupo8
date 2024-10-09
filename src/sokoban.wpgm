@@ -10,7 +10,6 @@ program sokoban {
     game.cellSize(50)
 
     nivel.addVisual()
-    game.addVisual(personaje)
     
     keyboard.up().onPressDo({personaje.mover(arriba)})
     keyboard.down().onPressDo({personaje.mover(abajo)})
