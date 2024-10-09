@@ -15,6 +15,8 @@ object nivel {
         botones.forEach({boton => game.addVisual(boton)})
         cajas.forEach({caja => game.addVisual(caja)})
         muros.forEach({muro => game.addVisual(muro)})
+
+        game.addVisual(personaje)
         personaje.position(game.at(3,3))
     }
 
@@ -22,6 +24,7 @@ object nivel {
         botones.forEach({boton => game.removeVisual(boton)})
         cajas.forEach({caja => game.removeVisual(caja)})
         muros.forEach({muro => game.removeVisual(muro)})
+        game.removeVisual(personaje)
     }
 
     method reset() {
