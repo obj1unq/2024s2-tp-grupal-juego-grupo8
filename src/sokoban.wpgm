@@ -17,5 +17,7 @@ program sokoban {
     keyboard.right().onPressDo({personaje.mover(derecha)})
     keyboard.left().onPressDo({personaje.mover(izquierda)})
 
+    keyboard.r().onPressDo({nivel.reset()})
+
     game.start()
 }
