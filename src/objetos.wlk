@@ -36,7 +36,7 @@ object noPresionado {
 //CAJA
 class Caja {
     var property position
-    var property estado = normal
+    var property estado
 
     method image() {
         return "caja_" + estado.toString() + ".png"
@@ -44,7 +44,9 @@ class Caja {
 
     method esAtravesable() { return false }
 
-    method esDesplazable() { return true }
+    method esDesplazable() { 
+        return estado.esDesplazable()
+     }
 
     method puedePresionar() { return true }
 
@@ -61,9 +63,17 @@ class Caja {
 
 }
 
-object normal {}
+object normal {
+    method esDesplazable() {
+        return true
+    }
+}
 
-object bloqueada {}
+object bloqueada {
+    method esDesplazable() {
+        return false
+    }
+}
 
 // MURO
 class Muro {
