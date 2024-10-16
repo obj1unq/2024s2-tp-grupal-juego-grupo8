@@ -3,11 +3,16 @@ import posiciones.*
 
 object personaje {
     var property position = game.at(3,3)
-    var property image = "avatar.png"
+    var property orientacion = arriba
+
+    method image () {
+        return "personaje_normal_" + orientacion.toString() + ".png"
+    }
 
     method puedePresionar() { return true }
 
     method mover(direccion) {
+        orientacion = direccion
         const siguiente = direccion.siguiente(self.position())
         self.validarMovimiento(siguiente)
         self.desplazarSiHayCaja(direccion)
