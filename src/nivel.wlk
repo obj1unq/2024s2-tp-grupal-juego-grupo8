@@ -8,7 +8,7 @@ object nivel {
     var property muros = #{}
 
     method addVisual() {
-        cajas = #{new Caja(position=game.at(1,3), estado = normal), new Caja(position=game.at(1,6), estado = bloqueada)}
+        cajas = #{new CajaNormal(position=game.at(1,3), estado = normal), new CajaNormal(position=game.at(1,6), estado = bloqueada)}
         muros = #{new Muro(position=game.at(2,3))}
         botones = #{new Boton(position=game.at(2,2))}
 
