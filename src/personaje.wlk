@@ -31,4 +31,6 @@ object personaje {
             caja.desplazar(direccion) 
         }
     }
+
+    method esDesplazable() { return false }
 }

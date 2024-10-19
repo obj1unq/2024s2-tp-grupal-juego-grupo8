@@ -33,20 +33,31 @@ object noPresionado {
     method color() { return "rojo" }
 }
 
+class BotonColorido inherits Boton {
+    const color
+
+    override method estado() {
+        return if (self.estaPresionado() and not self.esCajaDeMismoColor(game.uniqueCollider(self))) malPresionado else self
+    }
+
+    method color() { return color }
+
+    method esCajaDeMismoColor(objeto) {
+        return objeto.esDesplazable() and objeto.color() == self.color()
+    }
+}
+
+object malPresionado {
+    method color() {return "rojo2"}
+}
+
 //CAJA
 class Caja {
     var property position
-    var property estado
-
-    method image() {
-        return "caja_" + estado.toString() + ".png"
-    }
 
     method esAtravesable() { return false }
 
-    method esDesplazable() { 
-        return estado.esDesplazable()
-     }
+    method esDesplazable()
 
     method puedePresionar() { return true }
 
@@ -60,7 +71,18 @@ class Caja {
         limite.validarLimites(posicion)
         limite.validarAtravesables(posicion)
     }
+}
 
+class CajaNormal inherits Caja {
+    var property estado
+
+    method image() {
+        return "caja_" + estado.toString() + ".png"
+    }
+
+    override method esDesplazable() { 
+        return estado.esDesplazable()
+    }
 }
 
 object normal {
@@ -72,6 +94,20 @@ object normal {
 object bloqueada {
     method esDesplazable() {
         return false
+    }
+}
+
+class CajaColorida inherits Caja {
+    const color
+
+    method image() {
+        return "caja_color_" + color + ".png"
+    }
+
+    method color() { return color }
+
+    override method esDesplazable() {
+        return true
     }
 }
 
