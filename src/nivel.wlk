@@ -17,12 +17,18 @@ object nivel {
                     new BotonColorido(position=game.at(7,7), color = 'gris')}
 
         botones.forEach({boton => game.addVisual(boton)})
-        cajas.forEach({caja => caja.agregarAlTablero()})
+        cajas.forEach({caja => game.addVisual(caja)})
         muros.forEach({muro => game.addVisual(muro)})
 
 
         game.addVisual(personaje)
         personaje.position(game.at(3,3))
+    }
+
+    method comprobarBotones() {
+        if (botones.all({boton => boton.validarCajaEnBoton()})) {
+            game.say(personaje, "Termino el juego")
+        }
     }
 
     method clear() {

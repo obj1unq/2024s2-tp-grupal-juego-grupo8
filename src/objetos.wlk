@@ -24,8 +24,8 @@ class Boton {
 
     method puedePresionar() { return false }
 
-    method validarPosicion(caja) {
-        return self.estaPresionado() 
+    method validarCajaEnBoton() {
+        return self.estaPresionado() and game.uniqueCollider(self).esDesplazable()
     }
 }
 
@@ -51,8 +51,8 @@ class BotonColorido inherits Boton {
         return objeto.aceptarElColor(self.color())
     }
 
-    override method validarPosicion(caja) {
-        return super(caja) && self.esCajaDeMismoColor(caja)        
+    override method validarCajaEnBoton() {
+        return super() and self.esCajaDeMismoColor(game.uniqueCollider(self))      
     }
 
 }

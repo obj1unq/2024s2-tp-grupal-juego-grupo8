@@ -1,5 +1,6 @@
 import wollok.game.*
 import posiciones.*
+import nivel.*
 
 object personaje {
     var property position = game.at(3,3)
@@ -17,6 +18,7 @@ object personaje {
         self.validarMovimiento(siguiente)
         self.desplazarSiHayCaja(direccion)
         position = siguiente
+        nivel.comprobarBotones()
     }
 
     method validarMovimiento(posicion) {
