@@ -33,4 +33,6 @@ object personaje {
     }
 
     method esDesplazable() { return false }
+
+    method aceptarElColor(color) {} 
 }

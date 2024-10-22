@@ -23,6 +23,10 @@ class Boton {
     method esDesplazable() { return false }
 
     method puedePresionar() { return false }
+
+    method validarPosicion(caja) {
+        return self.estaPresionado() 
+    }
 }
 
 object presionado {
@@ -36,15 +40,21 @@ object noPresionado {
 class BotonColorido inherits Boton {
     const color
 
-    override method estado() {
-        return if (self.estaPresionado() and not self.esCajaDeMismoColor(game.uniqueCollider(self))) malPresionado else self
+    override method image() {
+        return "boton_" + color + ".png"
     }
+
 
     method color() { return color }
 
     method esCajaDeMismoColor(objeto) {
-        return objeto.esDesplazable() and objeto.color() == self.color()
+        return objeto.aceptarElColor(self.color())
     }
+
+    override method validarPosicion(caja) {
+        return super(caja) && self.esCajaDeMismoColor(caja)        
+    }
+
 }
 
 object malPresionado {
@@ -71,6 +81,12 @@ class Caja {
         limite.validarLimites(posicion)
         limite.validarAtravesables(posicion)
     }
+
+    method agregarAlTablero(){
+        game.addVisual(self)
+        game.onCollideDo(self, {boton => boton.validarPosicion(self) })
+    }
+
 }
 
 class CajaNormal inherits Caja {
@@ -83,6 +99,8 @@ class CajaNormal inherits Caja {
     override method esDesplazable() { 
         return estado.esDesplazable()
     }
+
+    method aceptarElColor(color) {} 
 }
 
 object normal {
@@ -101,13 +119,17 @@ class CajaColorida inherits Caja {
     const color
 
     method image() {
-        return "caja_color_" + color + ".png"
+        return "caja_" + color + ".png"
     }
 
     method color() { return color }
 
     override method esDesplazable() {
         return true
+    }
+
+    method aceptarElColor(colorBoton) {
+        return self.color() == colorBoton
     }
 }
 

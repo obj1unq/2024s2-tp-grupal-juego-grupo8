@@ -8,13 +8,18 @@ object nivel {
     var property muros = #{}
 
     method addVisual() {
-        cajas = #{new CajaNormal(position=game.at(1,3), estado = normal), new CajaNormal(position=game.at(1,6), estado = bloqueada)}
+        cajas = #{
+            new CajaNormal(position=game.at(1,3), estado = normal), 
+            new CajaNormal(position=game.at(1,6), estado = bloqueada),
+            new CajaColorida(position=game.at(4,4), color = 'gris')}
         muros = #{new Muro(position=game.at(2,3))}
-        botones = #{new Boton(position=game.at(2,2))}
+        botones = #{new Boton(position=game.at(2,2)),
+                    new BotonColorido(position=game.at(7,7), color = 'gris')}
 
         botones.forEach({boton => game.addVisual(boton)})
-        cajas.forEach({caja => game.addVisual(caja)})
+        cajas.forEach({caja => caja.agregarAlTablero()})
         muros.forEach({muro => game.addVisual(muro)})
+
 
         game.addVisual(personaje)
         personaje.position(game.at(3,3))
