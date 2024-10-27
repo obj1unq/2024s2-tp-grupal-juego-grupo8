@@ -83,7 +83,7 @@ class Caja {
 }
 
 class CajaNormal inherits Caja {
-    var property estado
+    var property estado = normal
 
     method image() {
         return "caja_" + estado.toString() + ".png"
@@ -152,5 +152,18 @@ object reloj {
 
     method pasarElTiempo() {
         segundos += 1
+    }
+}
+
+object fondoVictoria {
+    var property image = "fondo_victoria.png"
+    const property position = game.at(0,0)
+}
+
+object textoVictoria {
+    const property position = game.at(2,7)
+
+    method text() {
+        return "¡Ganaste en " + reloj.segundos() + " segundos!"
     }
 }

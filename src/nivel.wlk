@@ -3,18 +3,19 @@ import objetos.*
 import personaje.*
 
 object nivel {
-    var property botones = #{}
-    var property cajas = #{}
-    var property muros = #{}
+    //var property nivelActual = n1
+    const property botones = #{}
+    const property cajas = #{}
+    const property muros = #{}
 
     method addVisual() {
-        cajas = #{
-            new CajaNormal(position=game.at(1,3), estado = normal), 
-            new CajaNormal(position=game.at(1,6), estado = bloqueada),
-            new CajaColorida(position=game.at(4,4), color = 'gris')}
-        muros = #{new Muro(position=game.at(2,3))}
-        botones = #{new Boton(position=game.at(2,2)),
-                    new BotonColorido(position=game.at(7,7), color = 'gris')}
+        cajas.add(new CajaNormal(position=game.at(1,3)))
+        cajas.add(new CajaNormal(position=game.at(1,6), estado = bloqueada))
+        cajas.add(new CajaColorida(position=game.at(4,4), color = "gris"))
+        muros.add(new Muro(position=game.at(2,3)))
+        botones.add(new Boton(position=game.at(2,2)))
+        botones.add(new BotonColorido(position=game.at(7,7), color = "gris"))
+
         personaje.position(game.at(3,3))
 
         botones.forEach({boton => game.addVisual(boton)})
@@ -22,7 +23,6 @@ object nivel {
         muros.forEach({muro => game.addVisual(muro)})
 
         game.addVisual(personaje)
-
         game.addVisual(reloj)
 
         game.onTick(1000, "reloj", {reloj.pasarElTiempo()})
@@ -30,22 +30,32 @@ object nivel {
 
     method comprobarBotones() {
         if (botones.all({boton => boton.hayCajaEnBoton()})) {
-            game.say(personaje, "Termino el juego")
+            game.removeTickEvent("reloj")
+            game.addVisual(fondoVictoria)
+            game.addVisual(textoVictoria)
         }
     }
 
     method reset() {
         self.clear()
-        game.removeTickEvent("reloj")
         reloj.segundos(0)
         self.addVisual()
     }
 
     method clear() {
         botones.forEach({boton => game.removeVisual(boton)})
+        botones.clear()
         cajas.forEach({caja => game.removeVisual(caja)})
+        cajas.clear()
         muros.forEach({muro => game.removeVisual(muro)})
+        muros.clear()
         game.removeVisual(personaje)
         game.removeVisual(reloj)
+        game.removeVisual(fondoVictoria)
+        game.removeVisual(textoVictoria)
     }
+}
+
+object n1 {
+
 }
