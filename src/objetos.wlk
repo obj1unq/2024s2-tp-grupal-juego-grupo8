@@ -18,14 +18,19 @@ class Boton {
         return game.getObjectsIn(position).any({obj => obj.puedePresionar()})
     }
 
+    method objetoQuePresiona() {
+        // Rompe en el caso de que no haya nada presionando.
+        return game.uniqueCollider(self)
+    }
+
     method esAtravesable() { return true }
 
     method esDesplazable() { return false }
 
     method puedePresionar() { return false }
 
-    method validarCajaEnBoton() {
-        return self.estaPresionado() and game.uniqueCollider(self).esDesplazable()
+    method hayCajaEnBoton() {
+        return self.estaPresionado() and self.objetoQuePresiona().esDesplazable()
     }
 }
 
@@ -46,18 +51,13 @@ class BotonColorido inherits Boton {
 
     method color() { return color }
 
-    method esCajaDeMismoColor(objeto) {
+    method esDeMismoColor(objeto) {
         return objeto.aceptaColor(self.color())
     }
 
-    override method validarCajaEnBoton() {
-        return super() and self.esCajaDeMismoColor(game.uniqueCollider(self))      
+    override method hayCajaEnBoton() {
+        return super() and self.esDeMismoColor(self.objetoQuePresiona())
     }
-
-}
-
-object malPresionado {
-    method color() {return "rojo2"}
 }
 
 //CAJA
