@@ -137,3 +137,20 @@ class Muro {
 
     method puedePresionar() { return false }
 }
+
+object reloj {
+    var property segundos = 0
+    const property position = game.at(0,0)
+
+    method text() {
+        return segundos.toString()
+    }
+
+    method textColor() {
+        return "FF0000FF"
+    }
+
+    method pasarElTiempo() {
+        segundos += 1
+    }
+}

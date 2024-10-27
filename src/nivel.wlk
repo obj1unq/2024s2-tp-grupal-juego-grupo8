@@ -15,20 +15,30 @@ object nivel {
         muros = #{new Muro(position=game.at(2,3))}
         botones = #{new Boton(position=game.at(2,2)),
                     new BotonColorido(position=game.at(7,7), color = 'gris')}
+        personaje.position(game.at(3,3))
 
         botones.forEach({boton => game.addVisual(boton)})
         cajas.forEach({caja => game.addVisual(caja)})
         muros.forEach({muro => game.addVisual(muro)})
 
-
         game.addVisual(personaje)
-        personaje.position(game.at(3,3))
+
+        game.addVisual(reloj)
+
+        game.onTick(1000, "reloj", {reloj.pasarElTiempo()})
     }
 
     method comprobarBotones() {
-        if (botones.all({boton => boton.validarCajaEnBoton()})) {
+        if (botones.all({boton => boton.hayCajaEnBoton()})) {
             game.say(personaje, "Termino el juego")
         }
+    }
+
+    method reset() {
+        self.clear()
+        game.removeTickEvent("reloj")
+        reloj.segundos(0)
+        self.addVisual()
     }
 
     method clear() {
@@ -36,10 +46,6 @@ object nivel {
         cajas.forEach({caja => game.removeVisual(caja)})
         muros.forEach({muro => game.removeVisual(muro)})
         game.removeVisual(personaje)
-    }
-
-    method reset() {
-        self.clear()
-        self.addVisual()
+        game.removeVisual(reloj)
     }
 }
