@@ -44,11 +44,10 @@ class BotonColorido inherits Boton {
         return "boton_" + color + ".png"
     }
 
-
     method color() { return color }
 
     method esCajaDeMismoColor(objeto) {
-        return objeto.aceptarElColor(self.color())
+        return objeto.aceptaColor(self.color())
     }
 
     override method validarCajaEnBoton() {
@@ -81,12 +80,6 @@ class Caja {
         limite.validarLimites(posicion)
         limite.validarAtravesables(posicion)
     }
-
-    method agregarAlTablero(){
-        game.addVisual(self)
-        game.onCollideDo(self, {boton => boton.validarPosicion(self) })
-    }
-
 }
 
 class CajaNormal inherits Caja {
@@ -100,7 +93,7 @@ class CajaNormal inherits Caja {
         return estado.esDesplazable()
     }
 
-    method aceptarElColor(color) {} 
+    method aceptaColor(color) { return true } 
 }
 
 object normal {
@@ -128,7 +121,7 @@ class CajaColorida inherits Caja {
         return true
     }
 
-    method aceptarElColor(colorBoton) {
+    method aceptaColor(colorBoton) {
         return self.color() == colorBoton
     }
 }
@@ -138,7 +131,6 @@ class Muro {
     var property position
     const property image = "muro.png"
 
-    
     method esAtravesable() { return false }
 
     method esDesplazable() { return false }
