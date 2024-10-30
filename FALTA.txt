@@ -1,1 +1,1 @@
-· Test para validación de caja en botón.
+· Test para comprobarFinDeJuego (y arreglar el ultimo test de botón que se rompió)
