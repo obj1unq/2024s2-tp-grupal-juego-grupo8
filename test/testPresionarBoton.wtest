@@ -4,31 +4,30 @@ import src.posiciones.*
 
 describe "Presionar un botón" {
 
+    const boton = new Boton(position=game.at(1,1))
+
     method initialize() {
         game.clear()
         game.width(3)
         game.height(3)
         game.addVisual(personaje)
+        game.addVisual(boton)
     }
     test "El botón no está presionado si nadie lo pisa" {
-        const boton = new Boton(position=game.at(1,1))
         assert.equals(noPresionado, boton.estado())
     }
 
     test "El botón está presionado si alguien lo pisa" {
-        const boton = new Boton(position=game.at(1,1))
         personaje.position(game.at(1,2))
         personaje.mover(abajo)
         assert.equals(presionado, boton.estado())
     }
 
-    test "El botón deja de estar presionado cuando quién está encima se mueve y vice versa" {
-        const boton = new Boton(position=game.at(1,1))
-        personaje.position(game.at(1,2))
-        assert.equals(noPresionado, boton.estado())
-        personaje.mover(abajo)
+    test "El botón deja de estar presionado cuando quién está encima se mueve" {
+        const caja = new CajaNormal(position=game.at(1,1))
+        game.addVisual(caja)
         assert.equals(presionado, boton.estado())
-        personaje.mover(arriba)
+        game.removeVisual(caja)
         assert.equals(noPresionado, boton.estado())
     }
 }

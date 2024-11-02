@@ -138,6 +138,7 @@ class Muro {
     method puedePresionar() { return false }
 }
 
+// OTROS
 object reloj {
     var property segundos = 0
     const property position = game.at(0,0)
@@ -161,7 +162,7 @@ object fondoVictoria {
 }
 
 object textoVictoria {
-    const property position = game.at(2,7)
+    const property position = game.at(4,6)
 
     method text() {
         return "¡Ganaste en " + reloj.segundos() + " segundos!"

@@ -11,10 +11,10 @@ object nivel {
     method addVisual() {
         cajas.add(new CajaColorida(position=game.at(1,3), color = "azul"))
         cajas.add(new CajaNormal(position=game.at(1,6)))
-        cajas.add(new CajaColorida(position=game.at(4,4), color = "amarilla"))
+        cajas.add(new CajaColorida(position=game.at(4,4), color = "gris"))
         muros.add(new Muro(position=game.at(2,3)))
         botones.add(new BotonColorido(position=game.at(2,2), color = "azul"))
-        botones.add(new BotonColorido(position=game.at(7,7), color = "amarillo"))
+        botones.add(new BotonColorido(position=game.at(7,7), color = "gris"))
 
         personaje.position(game.at(3,3))
 
