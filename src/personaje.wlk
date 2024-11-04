@@ -18,7 +18,7 @@ object personaje {
         self.validarMovimiento(siguiente)
         self.desplazarSiHayCaja(direccion)
         position = siguiente
-        nivel.comprobarFinDeJuego()
+        nivel.comprobarFinNivel()
     }
 
     method validarMovimiento(posicion) {

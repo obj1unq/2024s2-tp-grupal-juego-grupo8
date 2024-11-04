@@ -8,6 +8,11 @@ object nivel {
     const property cajas = #{}
     const property muros = #{}
 
+    // Metodo para poder testear el comprobarFinDeJuego
+    method addBoton(boton) {
+        botones.add(boton)
+    }
+
     method addVisual() {
         cajas.add(new CajaColorida(position=game.at(1,3), color = "azul"))
         cajas.add(new CajaNormal(position=game.at(1,6)))
@@ -28,7 +33,7 @@ object nivel {
         game.onTick(1000, "reloj", {reloj.pasarElTiempo()})
     }
 
-    method comprobarFinDeJuego() {
+    method comprobarFinNivel() {
         if (self.hayCajasEnBotones()) {
             game.removeTickEvent("reloj")
             game.addVisual(fondoVictoria)

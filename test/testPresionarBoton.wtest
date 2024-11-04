@@ -1,6 +1,8 @@
+import wollok.game.*
 import src.personaje.*
 import src.objetos.*
 import src.posiciones.*
+import src.nivel.*
 
 describe "Presionar un botón" {
 
@@ -30,4 +32,38 @@ describe "Presionar un botón" {
         game.removeVisual(caja)
         assert.equals(noPresionado, boton.estado())
     }
+}
+
+describe "Comprobar fin de juego" {
+
+    const b1 = new BotonColorido(position=game.at(1,1), color = "azul")
+    const b2 = new BotonColorido(position=game.at(2,1), color = "negro")
+
+
+    method initialize() {
+        game.clear()
+        game.width(3)
+        game.height(3)
+        game.addVisual(b1)
+        nivel.addBoton(b1)
+        game.addVisual(b2)
+        nivel.addBoton(b2)
+    }
+
+    test "El nivel termina cuando las cajas están en los botones correspondientes" {
+        assert.notThat(nivel.hayCajasEnBotones())
+        assert.notThat(game.hasVisual(fondoVictoria))
+        game.addVisual(new CajaColorida(position=game.at(1,1), color = "azul"))
+        game.addVisual(new CajaColorida(position=game.at(2,1), color = "negro"))
+        nivel.comprobarFinNivel()
+        assert.that(game.hasVisual(fondoVictoria))
+    }
+
+    test "El nivel no termina cuando hay cajas que están en los botones que no se corresponden con sus colores" {
+        game.addVisual(new CajaColorida(position=game.at(1,1), color = "violeta"))
+        game.addVisual(new CajaColorida(position=game.at(2,1), color = "negro"))
+        nivel.comprobarFinNivel()
+        assert.notThat(game.hasVisual(fondoVictoria))
+    }
+
 }
