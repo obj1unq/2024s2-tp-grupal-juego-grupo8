@@ -7,6 +7,7 @@ object nivel {
     const property botones = #{}
     const property cajas = #{}
     const property muros = #{}
+    const property ventiladores = #{}
 
     // Metodo para poder testear el comprobarFinDeJuego
     method addBoton(boton) {
@@ -16,20 +17,23 @@ object nivel {
     method addVisual() {
         cajas.add(new CajaColorida(position=game.at(1,3), color = "azul"))
         cajas.add(new CajaNormal(position=game.at(1,6)))
-        cajas.add(new CajaColorida(position=game.at(4,4), color = "gris"))
+        cajas.add(new CajaColorida(position=game.at(4,4), color = "negro"))
         muros.add(new Muro(position=game.at(2,3)))
         botones.add(new BotonColorido(position=game.at(2,2), color = "azul"))
-        botones.add(new BotonColorido(position=game.at(7,7), color = "gris"))
+        botones.add(new BotonColorido(position=game.at(7,7), color = "negro"))
+        ventiladores.add(new Ventilador(position=game.at(2,6)))
 
         personaje.position(game.at(3,3))
 
         botones.forEach({boton => game.addVisual(boton)})
         cajas.forEach({caja => game.addVisual(caja)})
         muros.forEach({muro => game.addVisual(muro)})
+        ventiladores.forEach({v => game.addVisual(v)})
 
         game.addVisual(personaje)
         game.addVisual(reloj)
 
+        game.onTick(2500, "ventilador", {ventiladores.forEach({v => v.atraer()})})
         game.onTick(1000, "reloj", {reloj.pasarElTiempo()})
     }
 
