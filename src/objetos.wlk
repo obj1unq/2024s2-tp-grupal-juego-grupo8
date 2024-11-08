@@ -80,6 +80,10 @@ class Caja {
         limite.validarLimites(posicion)
         limite.validarAtravesables(posicion)
     }
+
+    method atraer(posicion) {
+        position = posicion
+    }
 }
 
 class CajaNormal inherits Caja {
@@ -126,6 +130,63 @@ class CajaColorida inherits Caja {
     }
 }
 
+//VENTILADORES
+class Ventilador {
+    var property position
+    var encendido = false
+
+
+
+    method image() {
+         return "ventilador_" + self.imgSegunEstado() + ".png"
+    }
+
+    method imgSegunEstado() {
+        return if (encendido) "encendido" else "apagado"
+    }
+
+    method encender() {
+        encendido = true
+    }
+
+    method apagar() {
+        encendido = false
+    }
+
+    method atraer() {
+        self.validarAtraer()
+        self.encender()
+        game.schedule(500, {self.apagar()})
+        if (not self.objetosVecinos().isEmpty()) self.objetosVecinos().anyOne().atraer(position)
+    }
+
+    method validarAtraer() {
+        if (self.hayObjetoDesplazableEncima())
+            self.error("El ventilador no puede atraer. Ya tiene un objeto.")
+    }
+
+    method hayObjetoDesplazableEncima() {
+        return game.getObjectsIn(position).any({obj => obj.esDesplazable()})
+    }
+
+    method objetosVecinos() {
+        const objVec = []
+        objVec.addAll(self.objetoDesplazableVecino(arriba))
+        objVec.addAll(self.objetoDesplazableVecino(abajo))
+        objVec.addAll(self.objetoDesplazableVecino(izquierda))
+        objVec.addAll(self.objetoDesplazableVecino(derecha))
+        return objVec
+    }
+
+    method objetoDesplazableVecino(direccion) {
+        return game.getObjectsIn(direccion.siguiente(position)).filter({obj => obj.esDesplazable()})
+    }
+
+    method esAtravesable() { return true }
+
+    method esDesplazable() { return false }
+}
+
 // MURO
 class Muro {
     var property position
@@ -135,7 +196,6 @@ class Muro {
 
     method esDesplazable() { return false }
 
-    method puedePresionar() { return false }
 }
 
 // OTROS

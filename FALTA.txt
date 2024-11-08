@@ -1,5 +1,5 @@
 * Agregar caminos con dirección  - Diego
-* Agregar ventiladores y comportamiento -- Lean 
+HECHO * Agregar ventiladores y comportamiento -- Lean [FALTA mejorar tiempo en que prenden y apagan] 
 * Agregar capacidad de retroceder (en movimientos) -- Jere
 
 · Contador de movimientos.
