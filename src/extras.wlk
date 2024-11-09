@@ -27,10 +27,11 @@ object fondoVictoria {
 }
 
 object textoVictoria {
-    method position() = game.at(7,9)
+    method position() = game.at(6,8)
 
     method text() {
         return "Lo conseguiste en ¡" + reloj.segundos() + " segundos! \n\n\n" 
-            + "Pulsá la tecla SPACE para avanzan al siguiente nivel"
+            + "Pulsá la tecla SPACE para avanzar al siguiente nivel"
+            + "O la tecla R para reiniciar el nivel"
     }
 }
