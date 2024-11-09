@@ -1,13 +1,16 @@
 * Agregar caminos con dirección  - Diego
-HECHO * Agregar ventiladores y comportamiento -- Lean [FALTA mejorar tiempo en que prenden y apagan] 
 * Agregar capacidad de retroceder (en movimientos) -- Jere
 
 · Contador de movimientos.
 · Caja Normal con limite de movimientos (bloqueadas después de 3 movimientos).
-· Creación de niveles.
 
 Posibles pero no urgentes:
 · Agregar distintos estados del personaje. Normal y Fuerte.
 · Agregar distintos tipos de muros. Herencia. Algún muro débil que el personaje fuerte pueda romper.
-· Agregar algunos sonidoo para que se reproduzcan durante el juego.
+· Agregar algunos sonido para que se reproduzcan durante el juego.
 · Agregar límite de movimientos de personaje, y mensajes al bloquearse
+
+
+- IDEA:
+     Agregar personalización de personaje con gorros. Cada tantos niveles se desbloquean gorros, que se pueden elegir con las teclas.
+      El gorro (o su imagen, mejor dicho) tendría que replicar la orientación del personaje, para consistencia.
