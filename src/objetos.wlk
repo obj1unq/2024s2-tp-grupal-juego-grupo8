@@ -135,8 +135,6 @@ class Ventilador {
     var property position
     var encendido = false
 
-
-
     method image() {
          return "ventilador_" + self.imgSegunEstado() + ".png"
     }
@@ -156,7 +154,7 @@ class Ventilador {
     method atraer() {
         self.validarAtraer()
         self.encender()
-        game.schedule(500, {self.apagar()})
+        game.schedule(2000, {self.apagar()})
         if (not self.objetosVecinos().isEmpty()) self.objetosVecinos().anyOne().atraer(position)
     }
 
@@ -196,35 +194,4 @@ class Muro {
 
     method esDesplazable() { return false }
 
-}
-
-// OTROS
-object reloj {
-    var property segundos = 0
-    const property position = game.at(0,0)
-
-    method text() {
-        return segundos.toString()
-    }
-
-    method textColor() {
-        return "FF0000FF"
-    }
-
-    method pasarElTiempo() {
-        segundos += 1
-    }
-}
-
-object fondoVictoria {
-    var property image = "fondo_victoria.png"
-    const property position = game.at(0,0)
-}
-
-object textoVictoria {
-    const property position = game.at(4,6)
-
-    method text() {
-        return "¡Ganaste en " + reloj.segundos() + " segundos!"
-    }
 }
