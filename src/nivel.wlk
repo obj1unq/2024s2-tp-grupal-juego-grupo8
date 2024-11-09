@@ -1,13 +1,16 @@
 import wollok.game.*
 import objetos.*
+import extras.*
 import personaje.*
 
 object nivel {
-    //var property nivelActual = n1
-    const property botones = #{}
-    const property cajas = #{}
-    const property muros = #{}
-    const property ventiladores = #{}
+    var nivelActual = n1
+    const botones = #{}
+    const objetos = #{} // necesario para poder remover visuales en cada cambio de nivel
+
+    method nivelActual() {
+        return nivelActual
+    }
 
     // Metodo para poder testear el comprobarFinDeJuego
     method addBoton(boton) {
@@ -15,38 +18,45 @@ object nivel {
     }
 
     method addVisual() {
-        cajas.add(new CajaColorida(position=game.at(1,3), color = "azul"))
-        cajas.add(new CajaNormal(position=game.at(1,6)))
-        cajas.add(new CajaColorida(position=game.at(4,4), color = "negro"))
-        muros.add(new Muro(position=game.at(2,3)))
-        botones.add(new BotonColorido(position=game.at(2,2), color = "azul"))
-        botones.add(new BotonColorido(position=game.at(7,7), color = "negro"))
-        ventiladores.add(new Ventilador(position=game.at(2,6)))
-
-        personaje.position(game.at(3,3))
-
-        botones.forEach({boton => game.addVisual(boton)})
-        cajas.forEach({caja => game.addVisual(caja)})
-        muros.forEach({muro => game.addVisual(muro)})
-        ventiladores.forEach({v => game.addVisual(v)})
-
-        game.addVisual(personaje)
         game.addVisual(reloj)
-
-        game.onTick(2500, "ventilador", {ventiladores.forEach({v => v.atraer()})})
-        game.onTick(1000, "reloj", {reloj.pasarElTiempo()})
+        game.addVisual(mapaTeclado)
+        nivelActual.crearMapa()
     }
+
+    /* Recibe los objetos con las posiciones configuradas 
+        según el mapa actual y los hace visuales.*/
+    method agregar(objeto) { 
+        game.addVisual(objeto)
+        objetos.add(objeto)
+    }
+
+    /* Similar al anterior, pero se necesita diferenciar, 
+        para comprobar el fin del juego.*/
+    method agregarBoton(boton) {
+        game.addVisual(boton)
+        botones.add(boton)
+    }
+
+    /*
+    game.onTick(2500, "ventilador", {ventiladores.forEach({v => v.atraer()})})
+    game.onTick(1000, "reloj", {reloj.pasarElTiempo()})
+    */
 
     method comprobarFinNivel() {
         if (self.hayCajasEnBotones()) {
-            game.removeTickEvent("reloj")
-            game.addVisual(fondoVictoria)
-            game.addVisual(textoVictoria)
+            self.finNivel()
         }
     }
 
     method hayCajasEnBotones() {
         return botones.all({boton => boton.hayCajaEnBoton()})
+    }
+
+    method finNivel() {
+        game.removeTickEvent("reloj")
+        game.addVisual(fondoVictoria)
+        game.addVisual(textoVictoria)
+        //keyboard.space().onPressDo({nivel.nextLevel()})
     }
 
     method reset() {
@@ -58,17 +68,126 @@ object nivel {
     method clear() {
         botones.forEach({boton => game.removeVisual(boton)})
         botones.clear()
-        cajas.forEach({caja => game.removeVisual(caja)})
-        cajas.clear()
-        muros.forEach({muro => game.removeVisual(muro)})
-        muros.clear()
+        objetos.forEach({obj => game.removeVisual(obj)})
+        objetos.clear()
         game.removeVisual(personaje)
         game.removeVisual(reloj)
         game.removeVisual(fondoVictoria)
         game.removeVisual(textoVictoria)
     }
+
+    //PENDIENTE
+    //method nextLevel() {}
 }
 
 object n1 {
 
+    const tablero = 
+    [[_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,n,_,_],     
+     [_,_,_,_,_,_,_,_,_,_,_,_,_],     
+     [_,_,_,m,_,p,_,_,_,_,_,_,_],     
+     [_,_,_,m,_,_,_,_,_,_,_,_,_],     
+     [_,_,_,m,m,m,m,_,_,_,_,_,_],     
+     [_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_],     
+     [_,_,_,_,_,s,_,_,_,_,_,_,_]         
+    ].reverse()
+
+    method crearMapa() {
+        game.height(tablero.size())
+        game.width(tablero.get(0).size())
+
+        (0..game.width() - 1).forEach({ x =>
+            (0..game.height() -1).forEach({y =>
+                tablero.get(y).get(x).configurar(game.at(x,y))
+            })
+        })
+        game.addVisual(personaje) // Se agrega al final para que esté por encima de todo
+    }
+}
+
+object _ {
+    method configurar(position) {  }
+}
+
+object p {
+    method configurar(position) {
+        personaje.position(position)
+    }
+}
+
+object m {
+    method configurar(position) {
+        nivel.agregar(new Muro(position = position))
+    }
+}
+
+object v {
+    method configurar(position) {
+        nivel.agregar(new Ventilador(position = position))
+    }
+}
+
+object c {
+    method configurar(position) {
+        nivel.agregar(new CajaNormal(position = position))
+    }
+}
+
+object cz {
+    method configurar(position) {
+        nivel.agregar(new CajaColorida(position = position, color = "azul"))
+    }
+}
+
+object cm {
+    method configurar(position) {
+        nivel.agregar(new CajaColorida(position = position, color = "amarillo"))
+    }
+}
+
+object cn {
+    method configurar(position) {
+        nivel.agregar(new CajaColorida(position = position, color = "negro"))
+    }
+}
+
+object cv {
+    method configurar(position) {
+        nivel.agregar(new CajaColorida(position = position, color = "violeta"))
+    }
+}
+
+object b {
+    method configurar(position) {
+        nivel.agregarBoton(new Boton(position = position))
+    }
+}
+
+object bz {
+    method configurar(position) {
+        nivel.agregarBoton(new BotonColorido(position = position, color = "azul"))
+    }
+}
+
+object bm {
+    method configurar(position) {
+        nivel.agregarBoton(new BotonColorido(position = position, color = "amarillo"))
+    }
+}
+
+object bn {
+    method configurar(position) {
+        nivel.agregarBoton(new BotonColorido(position = position, color = "negro"))
+    }
+}
+
+object bv {
+    method configurar(position) {
+        nivel.agregarBoton(new BotonColorido(position = position, color = "violeta"))
+    }
 }

@@ -5,10 +5,8 @@ import objetos.*
 import nivel.*
 
 program sokoban {
-    game.height(10)
-    game.width(10)
     game.cellSize(50)
-
+    
     nivel.addVisual()
     
     keyboard.up().onPressDo({personaje.mover(arriba)})
@@ -17,6 +15,7 @@ program sokoban {
     keyboard.left().onPressDo({personaje.mover(izquierda)})
 
     keyboard.r().onPressDo({nivel.reset()})
+    //keyboard.n().onPressDo({nivel.nextLevel()})
 
     game.start()
 }
