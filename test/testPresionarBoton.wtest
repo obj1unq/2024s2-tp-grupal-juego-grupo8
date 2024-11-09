@@ -1,6 +1,7 @@
 import wollok.game.*
 import src.personaje.*
 import src.objetos.*
+import src.extras.*
 import src.posiciones.*
 import src.nivel.*
 

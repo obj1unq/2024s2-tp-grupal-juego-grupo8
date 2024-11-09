@@ -27,6 +27,8 @@ class Boton {
 
     method esDesplazable() { return false }
 
+    method puedePresionar() { return false }
+
     method hayCajaEnBoton() {
         return self.estaPresionado() and self.objetoQuePresiona().esDesplazable()
     }
@@ -133,8 +135,6 @@ class Ventilador {
     var property position
     var encendido = false
 
-
-
     method image() {
          return "ventilador_" + self.imgSegunEstado() + ".png"
     }
@@ -154,7 +154,7 @@ class Ventilador {
     method atraer() {
         self.validarAtraer()
         self.encender()
-        game.schedule(500, {self.apagar()})
+        game.schedule(2000, {self.apagar()})
         if (not self.objetosVecinos().isEmpty()) self.objetosVecinos().anyOne().atraer(position)
     }
 

@@ -18,7 +18,7 @@ object reloj {
 
 object mapaTeclado {
     method image() = "teclas.png"
-    method position() = game.at(0,8)
+    method position() = game.at(0,4)
 }
 
 object fondoVictoria {
@@ -27,7 +27,7 @@ object fondoVictoria {
 }
 
 object textoVictoria {
-    method position() = game.at(4,9)
+    method position() = game.at(7,9)
 
     method text() {
         return "Lo conseguiste en ¡" + reloj.segundos() + " segundos! \n\n\n" 
