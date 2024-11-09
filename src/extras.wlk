@@ -31,7 +31,7 @@ object textoVictoria {
 
     method text() {
         return "Lo conseguiste en ¡" + reloj.segundos() + " segundos! \n\n\n" 
-            + "Pulsá la tecla SPACE para avanzar al siguiente nivel"
+            + "Pulsá la tecla SPACE para avanzar al siguiente nivel \n\n\n"
             + "O la tecla R para reiniciar el nivel"
     }
 }
