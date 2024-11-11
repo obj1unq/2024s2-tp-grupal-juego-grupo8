@@ -1,3 +1,6 @@
+- hacer metodo agregarCaja y agregarlas al final, para que quede por encima de los botones.
+
+
 * Agregar caminos con dirección  - Diego
 * Agregar capacidad de retroceder (en movimientos) -- Jere
 

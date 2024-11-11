@@ -45,10 +45,8 @@ describe "Comprobar fin de juego" {
         game.clear()
         game.width(3)
         game.height(3)
-        game.addVisual(b1)
-        nivel.addBoton(b1)
-        game.addVisual(b2)
-        nivel.addBoton(b2)
+        nivel.agregarBoton(b1)
+        nivel.agregarBoton(b2)
     }
 
     test "El nivel termina cuando las cajas están en los botones correspondientes" {

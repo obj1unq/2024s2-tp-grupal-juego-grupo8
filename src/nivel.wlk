@@ -6,17 +6,7 @@ import personaje.*
 object nivel {
     var nivelActual = n1
     const botones = #{}
-    const objetos = #{} // necesario para poder remover visuales en cada cambio de nivel
     const ventiladores = #{} // necesario para el onTick
-
-    method nivelActual() {
-        return nivelActual
-    }
-
-    // Metodo para poder testear el comprobarFinDeJuego
-    method addBoton(boton) {
-        botones.add(boton)
-    }
 
     method addVisual() {
         game.addVisual(reloj)
@@ -26,28 +16,24 @@ object nivel {
         game.onTick(3000, "ventilador", {ventiladores.forEach({v => v.atraer()})})
     }
 
-    /* Recibe los objetos con las posiciones configuradas 
-        según el mapa actual y los hace visuales.*/
-    method agregar(objeto) { 
-        game.addVisual(objeto)
-        objetos.add(objeto)
-    }
-
-    /* Similar al anterior, pero se necesita diferenciar, 
-        para comprobar el fin del juego.*/
+    
     method agregarBoton(boton) {
+        /* Es necesario guardar los botones en una colección 
+        para comprobar el fin del juego.*/
         game.addVisual(boton)
         botones.add(boton)
     }
 
     method agregarVentilador(v) {
+        /* Similar al anterior, pero se necesita diferenciar, 
+        para poder prender los ventiladores con el onTick.*/
         game.addVisual(v)
         ventiladores.add(v)
     }
 
     method comprobarFinNivel() {
         if (self.hayCajasEnBotones()) {
-            self.finNivel()
+            game.schedule(500, {self.finNivel()})
         }
     }
 
@@ -70,27 +56,37 @@ object nivel {
     }
 
     method clear() {
-        botones.forEach({boton => game.removeVisual(boton)})
+        game.allVisuals().forEach({visual => game.removeVisual(visual)})
         botones.clear()
-        objetos.forEach({obj => game.removeVisual(obj)})
-        objetos.clear()
-        ventiladores.forEach({v => game.removeVisual(v)})
         ventiladores.clear()
-        game.removeVisual(personaje)
-        game.removeVisual(reloj)
-        game.removeVisual(fondoVictoria)
-        game.removeVisual(textoVictoria)
-        game.removeVisual(mapaTeclado)
+        mapper.clear()
     }
 
     
     method nextLevel() {
+        self.validarFinDeNivel()
         nivelActual = nivelActual.siguiente()
         self.reset()
+    }
+
+    method validarFinDeNivel() {
+        if (not game.hasVisual(fondoVictoria))
+            self.error("No se puede pasar al siguiente nivel si no se ganó el actual.")
     }
 }
 
 object mapper {
+
+    const cajas = #{} // necesario para tener las cajas por encima de botones y ventiladores 
+
+    method agregarCaja(caja) {
+        cajas.add(caja)
+    }
+
+    method clear() {
+        // Para que no se agreguen las cajas de un nivel en el siguiente.
+        cajas.clear()
+    }
 
     method crearMapa(nivel) {
         game.height(nivel.tablero().size())
@@ -101,6 +97,7 @@ object mapper {
                 nivel.tablero().get(y).get(x).configurar(game.at(x,y))
             })
         })
+        cajas.forEach({caja => game.addVisual(caja)})
         game.addVisual(personaje) // Se agrega al final para que esté por encima de todo
     }
 
@@ -164,7 +161,7 @@ object p {
 
 object m {
     method configurar(position) {
-        nivel.agregar(new Muro(position = position))
+        game.addVisual(new Muro(position = position))
     }
 }
 
@@ -210,30 +207,30 @@ object bv {
 
 object c {
     method configurar(position) {
-        nivel.agregar(new CajaNormal(position = position))
+        mapper.agregarCaja(new CajaNormal(position = position))
     }
 }
 
 object cz {
     method configurar(position) {
-        nivel.agregar(new CajaColorida(position = position, color = "azul"))
+        mapper.agregarCaja(new CajaColorida(position = position, color = "azul"))
     }
 }
 
 object cm {
     method configurar(position) {
-        nivel.agregar(new CajaColorida(position = position, color = "amarillo"))
+        mapper.agregarCaja(new CajaColorida(position = position, color = "amarillo"))
     }
 }
 
 object cn {
     method configurar(position) {
-        nivel.agregar(new CajaColorida(position = position, color = "negro"))
+        mapper.agregarCaja(new CajaColorida(position = position, color = "negro"))
     }
 }
 
 object cv {
     method configurar(position) {
-        nivel.agregar(new CajaColorida(position = position, color = "violeta"))
+        mapper.agregarCaja(new CajaColorida(position = position, color = "violeta"))
     }
 }

@@ -154,17 +154,17 @@ class Ventilador {
     method atraer() {
         self.validarAtraer()
         self.encender()
-        game.schedule(2000, {self.apagar()})
+        game.schedule(1000, {self.apagar()})
         if (not self.objetosVecinos().isEmpty()) self.objetosVecinos().anyOne().atraer(position)
     }
 
     method validarAtraer() {
-        if (self.hayObjetoDesplazableEncima())
+        if (self.hayObjetoEncima())
             self.error("El ventilador no puede atraer. Ya tiene un objeto.")
     }
 
-    method hayObjetoDesplazableEncima() {
-        return game.getObjectsIn(position).any({obj => obj.esDesplazable()})
+    method hayObjetoEncima() {
+        return game.getObjectsIn(position).size() > 1
     }
 
     method objetosVecinos() {
