@@ -1,4 +1,5 @@
 import wollok.game.*
+import historial.*
 import personaje.*
 import posiciones.*
 import objetos.*
@@ -16,6 +17,7 @@ program sokoban {
 
     keyboard.r().onPressDo({nivel.reset()})
     //keyboard.n().onPressDo({nivel.saltarASiguiente()}) A implementar para mostrar todos los niveles sin pasarlos.
+    keyboard.z().onPressDo({historial.undo()})
 
     game.start()
 }

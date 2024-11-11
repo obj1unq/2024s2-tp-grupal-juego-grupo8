@@ -1,4 +1,5 @@
 import wollok.game.*
+import historial.*
 import posiciones.*
 import nivel.*
 
@@ -13,6 +14,7 @@ object personaje {
     method puedePresionar() { return true }
 
     method mover(direccion) {
+        historial.registrarMovimiento()
         orientacion = direccion
         const siguiente = direccion.siguiente(self.position())
         self.validarMovimiento(siguiente)
@@ -30,7 +32,8 @@ object personaje {
         const objetosEnSiguientePos = game.getObjectsIn(direccion.siguiente(self.position()))
         if (objetosEnSiguientePos.any({obj => obj.esDesplazable()})) {
             const caja = objetosEnSiguientePos.find({obj => obj.esDesplazable()})
-            caja.desplazar(direccion) 
+            historial.registrarMovimiento(caja)
+            caja.desplazar(direccion)
         }
     }
 
