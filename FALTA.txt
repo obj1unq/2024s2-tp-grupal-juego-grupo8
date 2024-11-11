@@ -1,3 +1,12 @@
+... Despues de lo charlado con Leo
+* Agregar mejores niveles, que resulten atractivos
+* Ventiladores que expulsen? Y hacer el onTick polimórfico
+* hacer el desplazar de los registros polimorfico (en vez de guardar el movimiento de la caja, que guarde la accion que corresponda)
+     - ¿Como se guardaria en el registro un bloqueo de caja?
+* Además de poder empujar, también romper cajas? (con personaje fuerte).
+
+
+* Agregar en undo a teclado
 * Agregar caminos con dirección  - Diego
 
 · Caja Normal con limite de movimientos (bloqueadas después de 3 movimientos).
