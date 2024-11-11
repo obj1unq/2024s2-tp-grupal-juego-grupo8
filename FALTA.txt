@@ -1,10 +1,5 @@
-- hacer metodo agregarCaja y agregarlas al final, para que quede por encima de los botones.
-
-
 * Agregar caminos con dirección  - Diego
-* Agregar capacidad de retroceder (en movimientos) -- Jere
 
-· Contador de movimientos.
 · Caja Normal con limite de movimientos (bloqueadas después de 3 movimientos).
 
 Posibles pero no urgentes:
