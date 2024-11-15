@@ -28,14 +28,26 @@ object personaje {
         limite.validarBloqueo(posicion)
     }
 
-    method desplazarSiHayCaja(direccion) {
-        const objetosEnSiguientePos = game.getObjectsIn(direccion.siguiente(self.position()))
-        if (objetosEnSiguientePos.any({obj => obj.esDesplazable()})) {
-            const caja = objetosEnSiguientePos.find({obj => obj.esDesplazable()})
-            historial.registrarMovimiento(caja)
-            caja.desplazar(direccion)
+    method desplazarSiHayCaja(direccion) {     
+        if (self.hayAlgunObjEnSiguientePos(direccion)) {
+            historial.registrarMovimiento(self.cajaObjEnSiguientePosicion(direccion))
+            self.cajaObjEnSiguientePosicion(direccion).desplazar(direccion)
         }
     }
+
+    method cajaObjEnSiguientePosicion(direccion) { 
+        return self.objsEnSiguientePosicion(direccion).find({obj => obj.esDesplazable()}) 
+    }
+
+    method objsEnSiguientePosicion(direccion) { 
+        return game.getObjectsIn(direccion.siguiente(self.position()))
+    }
+
+
+    method  hayAlgunObjEnSiguientePos(direccion) { 
+        return self.objsEnSiguientePosicion(direccion).any({obj => obj.esDesplazable()}) 
+    }
+
 
     method esDesplazable() { return false }
 
