@@ -4,6 +4,10 @@ import personaje.*
 object historial {
     const registros = []
 
+    method clear() {
+        registros.clear()
+    }
+
     method registrarMovimiento() {
         registros.add(new Registro(posicionPersonaje = personaje.position(), orientacionPersonaje = personaje.orientacion()))
     }
