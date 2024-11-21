@@ -8,7 +8,7 @@ object personaje {
     var property orientacion = arriba
 
     method image () {
-        return "personaje_normal_" + orientacion.toString() + ".png"
+        return "personaje_" + orientacion + ".png"
     }
 
     method puedePresionar() { return true }

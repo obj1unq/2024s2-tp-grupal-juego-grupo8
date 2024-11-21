@@ -16,7 +16,7 @@ program sokoban {
     keyboard.left().onPressDo({personaje.mover(izquierda)})
 
     keyboard.r().onPressDo({nivel.reset()})
-    //keyboard.n().onPressDo({nivel.saltarASiguiente()}) A implementar para mostrar todos los niveles sin pasarlos.
+    keyboard.n().onPressDo({nivel.saltarASiguiente()}) // Trampa para mostrar todos los niveles sin pasarlos.
     keyboard.z().onPressDo({historial.undo()})
 
     game.start()

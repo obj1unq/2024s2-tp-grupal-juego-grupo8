@@ -42,7 +42,7 @@ object noPresionado {
     method color() { return "rojo" }
 }
 
-class BotonColorido inherits Boton {
+class BotonDeColor inherits Boton {
     const color
 
     override method image() {
@@ -64,9 +64,13 @@ class BotonColorido inherits Boton {
 class Caja {
     var property position
 
+    method image() {
+        return "caja_normal.png"
+    }
+
     method esAtravesable() { return false }
 
-    method esDesplazable()
+    method esDesplazable() { return true }
 
     method puedePresionar() { return true }
 
@@ -80,42 +84,18 @@ class Caja {
         limite.validarLimites(posicion)
         limite.validarAtravesables(posicion)
     }
+    
+    method aceptaColor(color) { return true } 
 
     method atraer(posicion) {
         position = posicion
     }
 }
 
-class CajaNormal inherits Caja {
-    var property estado = normal
-
-    method image() {
-        return "caja_" + estado.toString() + ".png"
-    }
-
-    override method esDesplazable() { 
-        return estado.esDesplazable()
-    }
-
-    method aceptaColor(color) { return true } 
-}
-
-object normal {
-    method esDesplazable() {
-        return true
-    }
-}
-
-object bloqueada {
-    method esDesplazable() {
-        return false
-    }
-}
-
-class CajaColorida inherits Caja {
+class CajaDeColor inherits Caja {
     const color
 
-    method image() {
+    override method image() {
         return "caja_" + color + ".png"
     }
 
@@ -125,7 +105,7 @@ class CajaColorida inherits Caja {
         return true
     }
 
-    method aceptaColor(colorBoton) {
+    override method aceptaColor(colorBoton) {
         return self.color() == colorBoton
     }
 }
@@ -155,7 +135,7 @@ class Ventilador {
         self.validarAtraer()
         self.encender()
         game.schedule(1000, {self.apagar()})
-        if (not self.objetosVecinos().isEmpty()) self.objetosVecinos().anyOne().atraer(position)
+        if (not self.objetosVecinos().isEmpty()) self.objetosVecinos().anyOne().position(position)
     }
 
     method validarAtraer() {

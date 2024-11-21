@@ -27,7 +27,7 @@ describe "Presionar un botón" {
     }
 
     test "El botón deja de estar presionado cuando quién está encima se mueve" {
-        const caja = new CajaNormal(position=game.at(1,1))
+        const caja = new Caja(position=game.at(1,1))
         game.addVisual(caja)
         assert.equals(presionado, boton.estado())
         game.removeVisual(caja)
@@ -37,8 +37,8 @@ describe "Presionar un botón" {
 
 describe "Comprobar fin de juego" {
 
-    const b1 = new BotonColorido(position=game.at(1,1), color = "azul")
-    const b2 = new BotonColorido(position=game.at(2,1), color = "negro")
+    const b1 = new BotonDeColor(position=game.at(1,1), color = "azul")
+    const b2 = new BotonDeColor(position=game.at(2,1), color = "negro")
 
 
     method initialize() {
@@ -52,15 +52,15 @@ describe "Comprobar fin de juego" {
     test "El nivel termina cuando las cajas están en los botones correspondientes" {
         assert.notThat(nivel.hayCajasEnBotones())
         assert.notThat(game.hasVisual(fondoVictoria))
-        game.addVisual(new CajaColorida(position=game.at(1,1), color = "azul"))
-        game.addVisual(new CajaColorida(position=game.at(2,1), color = "negro"))
+        game.addVisual(new CajaDeColor(position=game.at(1,1), color = "azul"))
+        game.addVisual(new CajaDeColor(position=game.at(2,1), color = "negro"))
         nivel.comprobarFinNivel()
         assert.that(game.hasVisual(fondoVictoria))
     }
 
     test "El nivel no termina cuando hay cajas que están en los botones que no se corresponden con sus colores" {
-        game.addVisual(new CajaColorida(position=game.at(1,1), color = "violeta"))
-        game.addVisual(new CajaColorida(position=game.at(2,1), color = "negro"))
+        game.addVisual(new CajaDeColor(position=game.at(1,1), color = "violeta"))
+        game.addVisual(new CajaDeColor(position=game.at(2,1), color = "negro"))
         nivel.comprobarFinNivel()
         assert.notThat(game.hasVisual(fondoVictoria))
     }
