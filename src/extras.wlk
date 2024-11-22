@@ -18,7 +18,7 @@ object reloj {
 
 object mapaTeclado {
     method image() = "teclas.png"
-    method position() = game.at(0,4)
+    method position() = game.at(0,6)
 }
 
 object fondoVictoria {

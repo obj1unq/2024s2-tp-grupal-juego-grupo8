@@ -1,11 +1,8 @@
+TESTS!
+Agregar cantidad movimientos a pantalla de victoria
 Cambiar el readme
-Manejar excepciones en onTick
-Mejorar coliciones con cajas y caminos
-Ayudar con caminos
 Agregar pantalla inicio
 Agregar en undo a teclado
-Agregar un metodo en nivel que agregue los visuales y los onTicks en metodos separados (un if para el del ventilador).
-Agregar cantidad movimientos a pantalla de victoria
 Hacer ventilador que empuja y un nivel así.
 Tres niveles por tipo de objeto
 ¿Agregar sonidos para que se reproduzcan durante el juego?

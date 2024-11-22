@@ -10,12 +10,27 @@ object nivel {
     const botones = #{}
     const ventiladores = #{}
 
+    method start() {
+        self.addVisual()
+        self.onTick()
+    }
+
     method addVisual() {
         game.addVisual(reloj)
         game.addVisual(mapaTeclado)
         mapper.crearMapa(nivelActual)
+    }
+
+    method onTick() {
         game.onTick(1000, "reloj", {reloj.pasarElTiempo()})
-        game.onTick(3000, "ventilador", {ventiladores.forEach({v => v.atraer()})})
+        game.onTick(3000, "ventilador", {ventiladores.forEach({v =>
+            try {
+                v.atraer()
+            }
+            catch exception {
+                game.say(v, exception.toString())
+            }
+        })})
     }
 
     
@@ -54,7 +69,7 @@ object nivel {
     method reset() {
         self.clear()
         reloj.segundos(0)
-        self.addVisual()
+        self.start()
     }
 
     method clear() {
