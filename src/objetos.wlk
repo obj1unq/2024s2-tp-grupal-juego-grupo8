@@ -1,6 +1,8 @@
+import historial.*
 import wollok.game.*
 import personaje.*
 import posiciones.*
+import tablero.*
 
 //BOTON
 class Boton {
@@ -22,6 +24,8 @@ class Boton {
         // Rompe en el caso de que no haya nada presionando.
         return game.uniqueCollider(self)
     }
+
+    method colisionar(direccion) {  }
 
     method esAtravesable() { return true }
 
@@ -74,22 +78,23 @@ class Caja {
 
     method puedePresionar() { return true }
 
+    method colisionar(direccion) { 
+        self.desplazar(direccion)
+    }
+
     method desplazar(direccion) {
         const siguiente = direccion.siguiente(position)
         self.validarDesplazamiento(siguiente)
+        historial.registrarMovimiento(self)
         position = siguiente
     }
 
     method validarDesplazamiento(posicion) {
-        limite.validarLimites(posicion)
-        limite.validarAtravesables(posicion)
+        tablero.validarLimites(posicion)
+        tablero.validarAtravesables(posicion)
     }
     
     method aceptaColor(color) { return true } 
-
-    method atraer(posicion) {
-        position = posicion
-    }
 }
 
 class CajaDeColor inherits Caja {
@@ -112,7 +117,7 @@ class CajaDeColor inherits Caja {
 
 //VENTILADORES
 class Ventilador {
-    var property position
+    const property position
     var encendido = false
 
     method image() {
@@ -131,11 +136,13 @@ class Ventilador {
         encendido = false
     }
 
+    method colisionar(direccion) {  }
+
     method atraer() {
         self.validarAtraer()
         self.encender()
         game.schedule(1000, {self.apagar()})
-        if (not self.objetosVecinos().isEmpty()) self.objetosVecinos().anyOne().position(position)
+        if (self.hayObjetosVecinos()) self.objetosVecinos().anyOne().position(position)
     }
 
     method validarAtraer() {
@@ -144,7 +151,11 @@ class Ventilador {
     }
 
     method hayObjetoEncima() {
-        return game.getObjectsIn(position).size() > 1
+        return game.getObjectsIn(position).size() > 1 // > 1 ya que está el propio ventilador
+    }
+
+    method hayObjetosVecinos() {
+        return not self.objetosVecinos().isEmpty()
     }
 
     method objetosVecinos() {
@@ -167,8 +178,10 @@ class Ventilador {
 
 // MURO
 class Muro {
-    var property position
+    const property position
     const property image = "muro.png"
+
+    method colisionar(direccion) { self.error("No me pueden atravesar.") }
 
     method esAtravesable() { return false }
 

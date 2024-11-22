@@ -1,6 +1,7 @@
 import wollok.game.*
 import historial.*
 import posiciones.*
+import tablero.*
 import nivel.*
 
 object personaje {
@@ -17,37 +18,33 @@ object personaje {
         historial.registrarMovimiento()
         orientacion = direccion
         const siguiente = direccion.siguiente(self.position())
-        self.validarMovimiento(siguiente)
-        self.desplazarSiHayCaja(direccion)
+        tablero.validarLimites(siguiente)
+        self.colisionarSiHayObjetos(siguiente)
         position = siguiente
         nivel.comprobarFinNivel()
     }
 
-    method validarMovimiento(posicion) {
-        limite.validarLimites(posicion)
-        limite.validarBloqueo(posicion)
-    }
-
-    method desplazarSiHayCaja(direccion) {     
-        if (self.hayAlgunObjEnSiguientePos(direccion)) {
-            historial.registrarMovimiento(self.cajaObjEnSiguientePosicion(direccion))
-            self.cajaObjEnSiguientePosicion(direccion).desplazar(direccion)
+    method colisionarSiHayObjetos(posicion) {
+        if (tablero.hayObjetoEn(posicion)) {
+            tablero.objetosEn(posicion).forEach({obj => obj.colisionar(orientacion)})
         }
     }
 
-    method cajaObjEnSiguientePosicion(direccion) { 
-        return self.objsEnSiguientePosicion(direccion).find({obj => obj.esDesplazable()}) 
-    }
+    // method validarMovimiento(posicion) {
+    //     tablero.validarLimites(posicion)
+    //     tablero.validarBloqueo(posicion)
+    // }
 
-    method objsEnSiguientePosicion(direccion) { 
-        return game.getObjectsIn(direccion.siguiente(self.position()))
-    }
+    // method desplazarSiHayCaja(direccion) {     
+    //     if (self.hayAlgunObjEnSiguientePos(direccion)) {
+    //         historial.registrarMovimiento(self.cajaObjEnSiguientePosicion(direccion))
+    //         self.cajaObjEnSiguientePosicion(direccion).desplazar(direccion)
+    //     }
+    // }
 
-
-    method  hayAlgunObjEnSiguientePos(direccion) { 
-        return self.objsEnSiguientePosicion(direccion).any({obj => obj.esDesplazable()}) 
-    }
-
+    // method cajaObjEnSiguientePosicion(direccion) { 
+    //     return self.objsEnSiguientePosicion(direccion).find({obj => obj.esDesplazable()}) 
+    // }
 
     method esDesplazable() { return false }
 

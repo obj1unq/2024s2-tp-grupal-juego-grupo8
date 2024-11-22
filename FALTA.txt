@@ -1,23 +1,13 @@
-... Despues de lo charlado con Leo
-* Agregar mejores niveles, que resulten atractivos
-* Ventiladores que expulsen? Y hacer el onTick polimórfico
-* hacer el desplazar de los registros polimorfico (en vez de guardar el movimiento de la caja, que guarde la accion que corresponda)
-     - ¿Como se guardaria en el registro un bloqueo de caja?
-* Además de poder empujar, también romper cajas? (con personaje fuerte).
-
-
-* Agregar en undo a teclado
+Cambiar el readme
+Manejar excepciones en onTick
+Mejorar coliciones con cajas y caminos
+Ayudar con caminos
+Agregar pantalla inicio
+Agregar en undo a teclado
+Agregar un metodo en nivel que agregue los visuales y los onTicks en metodos separados (un if para el del ventilador).
+Agregar cantidad movimientos a pantalla de victoria
+Hacer ventilador que empuja y un nivel así.
+Tres niveles por tipo de objeto
+¿Agregar sonidos para que se reproduzcan durante el juego?
+ 
 * Agregar caminos con dirección  - Diego
-
-· Caja Normal con limite de movimientos (bloqueadas después de 3 movimientos).
-
-Posibles pero no urgentes:
-· Agregar distintos estados del personaje. Normal y Fuerte.
-· Agregar distintos tipos de muros. Herencia. Algún muro débil que el personaje fuerte pueda romper.
-· Agregar algunos sonido para que se reproduzcan durante el juego.
-· Agregar límite de movimientos de personaje, y mensajes al bloquearse
-
-
-- IDEA:
-     Agregar personalización de personaje con gorros. Cada tantos niveles se desbloquean gorros, que se pueden elegir con las teclas.
-      El gorro (o su imagen, mejor dicho) tendría que replicar la orientación del personaje, para consistencia.
