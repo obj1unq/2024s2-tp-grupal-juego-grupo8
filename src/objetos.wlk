@@ -97,6 +97,7 @@ class Caja {
     method validarDesplazamiento(posicion) {
         tablero.validarLimites(posicion)
         tablero.validarAtravesables(posicion)
+        tablero.validarOrientacion(posicion)
     }
     
     method aceptaColor(color) { return true } 

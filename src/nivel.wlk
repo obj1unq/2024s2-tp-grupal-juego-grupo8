@@ -6,7 +6,7 @@ import historial.*
 import mapper.*
 
 object nivel {
-    var nivelActual = n1
+    var nivelActual = ntest
     const botones = #{}
     const ventiladores = #{}
 
