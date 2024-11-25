@@ -32,7 +32,8 @@ object textoVictoria {
     method position() = game.at(8,8)
 
     method text() {
-        return "Lo conseguiste en ¡" + reloj.segundos() + " segundos! \n\n\n" 
+        return "Tus resultados: \n\n" + reloj.segundos() + " segundos. \n"
+            + personaje.movimientos() + " movimientos. \n\n\n" 
             + "Pulsá la tecla SPACE para avanzar al siguiente nivel \n\n\n"
             + "O la tecla R para reiniciar el nivel"
     }

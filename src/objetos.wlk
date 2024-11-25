@@ -189,7 +189,11 @@ class Muro {
     const property position
     const property image = "muro.png"
 
-    method colisionar(direccion) { self.error("No me pueden atravesar.") }
+    method colisionar(direccion) { self.validacion() }
+
+    method validacion() {
+        self.error("No se puede atravesar el muro.")
+    }
 
     method esAtravesable() { return false }
 
