@@ -19,10 +19,13 @@ object personaje {
         orientacion = direccion
         const siguiente = direccion.siguiente(self.position())
         tablero.validarLimites(siguiente)
+        tablero.validarOrientacion(siguiente)
         self.colisionarSiHayObjetos(siguiente)
         position = siguiente
         nivel.comprobarFinNivel()
     }
+
+
 
     method colisionarSiHayObjetos(posicion) {
         if (tablero.hayObjetoEn(posicion)) {

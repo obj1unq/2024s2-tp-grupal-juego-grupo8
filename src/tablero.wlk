@@ -1,3 +1,4 @@
+import personaje.*
 import wollok.game.*
 
 object tablero {
@@ -24,6 +25,27 @@ object tablero {
 		if (self.objetosEn(posicion).any({obj => not obj.esAtravesable()}))
 			self.error("No puedo mover. Ya un objeto en esa posición.")
 	}
+
+	method validarOrientacion(posicion) {
+		if (self.validoInternamente(posicion) && not self.estanOrientados(posicion)) {
+			self.error("No puedo mover. Posee otra orientacion.")
+		}
+	}	
+
+// 	method validarSiHayOrientacion(posicion) {
+// 		return self.validoInternamente(posicion) && self.estanOrientados(orientacion) 
+// 	}
+
+
+	method validoInternamente(posicion) {
+		return self.objetosEn(posicion).any({obj => obj.poseeOrientacion()})
+	} 
+	
+	method estanOrientados(posicion) { 
+		return self.objetosEn(posicion).any({obj => obj.orientacion() == personaje.orientacion()})
+		// return orientacion.siguiente(personaje.position()) == personaje.orientacion()
+	}
+
 
 	// method validarBloqueo(position) {
 	// 	if (game.getObjectsIn(position).any({obj => not obj.esAtravesable() and not obj.esDesplazable()}))

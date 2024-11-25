@@ -2,16 +2,18 @@ import wollok.game.*
 import objetos.*
 import personaje.*
 import nivel.*
+import posiciones.*
 object mapper {
 
-    const cajas = #{} // necesario para tener las cajas por encima de botones y ventiladores 
+    // necesario para tener las cajas por encima de botones y ventiladores 
+    const cajas = #{} 
 
     method agregarCaja(caja) {
         cajas.add(caja)
     }
 
+    // Para que no se agreguen las cajas de un nivel en el siguiente.
     method clear() {
-        // Para que no se agreguen las cajas de un nivel en el siguiente.
         cajas.clear()
     }
 
@@ -25,7 +27,8 @@ object mapper {
             })
         })
         cajas.forEach({caja => game.addVisual(caja)})
-        game.addVisual(personaje) // Se agrega al final para que esté por encima de todo
+        game.addVisual(personaje) 
+        // Se agrega al final para que esté por encima de todo
     }
 
 }
@@ -157,6 +160,28 @@ object n5 {
     }
 }
 
+object ntest {
+
+    const property tablero = 
+    [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],     
+     [_,_,m,m,_,_,_,m,m,m,m,m,_,_,_,_,_],     
+     [_,_,m,_,cab,_,bz,_,cz,_,m,m,_,_,_,_,_],     
+     [_,_,m,m,_,_,_,cm,_,bm,m,_,_,_,_,_],     
+     [_,_,m,_,_,cad,bv,_,cv,_,m,m,_,_,_,_,_],     
+     [_,_,m,caa,_,_,_,cn,p,bn,m,_,_,_,_,_],
+     [_,_,m,_,_,cai,bm,_,cm,_,m,m,_,_,_,_,_],
+     [_,_,m,m,_,_,_,cz,_,bz,m,_,_,_,_,_],
+     [_,_,m,m,m,m,m,m,m,m,m,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],     
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]         
+    ].reverse()
+
+    method siguiente() {
+        return n1
+    }
+}
+
 
 object _ {
     method configurar(position) {  }
@@ -242,4 +267,29 @@ object cv {
     method configurar(position) {
         mapper.agregarCaja(new CajaDeColor(position = position, color = "violeta"))
     }                           
+}
+
+// Caminos con direccion, arriba, abajo, derecha, izquierda.
+object caa {
+    method configurar(position) {
+       game.addVisual(new CaminoConDireccion(position = position, orientacion = arriba))
+    }
+}
+
+object cab {
+    method configurar(position) {
+       game.addVisual(new CaminoConDireccion(position = position, orientacion = abajo))
+    }
+}
+
+object cad {
+    method configurar(position) {
+       game.addVisual(new CaminoConDireccion(position = position, orientacion = derecha))
+    }
+}
+
+object cai {
+    method configurar(position) {
+       game.addVisual(new CaminoConDireccion(position = position, orientacion = izquierda))
+    }
 }

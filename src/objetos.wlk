@@ -33,9 +33,12 @@ class Boton {
 
     method puedePresionar() { return false }
 
+    method poseeOrientacion() { return false }
+
     method hayCajaEnBoton() {
         return self.estaPresionado() and self.objetoQuePresiona().esDesplazable()
     }
+
 }
 
 object presionado {
@@ -71,6 +74,8 @@ class Caja {
     method image() {
         return "caja_normal.png"
     }
+
+    method poseeOrientacion() { return false }
 
     method esAtravesable() { return false }
 
@@ -174,6 +179,8 @@ class Ventilador {
     method esAtravesable() { return true }
 
     method esDesplazable() { return false }
+
+    method poseeOrientacion() { return false }
 }
 
 // MURO
@@ -187,4 +194,25 @@ class Muro {
 
     method esDesplazable() { return false }
 
+    method poseeOrientacion() { return false }
+
+}
+
+// CAMINOS CON DIRECCION
+
+class CaminoConDireccion {
+    var property position 
+    var property orientacion
+
+    method image () {
+        return "camino_" + orientacion.toString() + ".png"
+    }
+
+    method colisionar(direccion) { }
+
+    method poseeOrientacion() { return true }
+
+    method esAtravesable() { return true }
+
+    method esDesplazable() { return false} 
 }

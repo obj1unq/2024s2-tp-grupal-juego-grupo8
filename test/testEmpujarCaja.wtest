@@ -1,3 +1,4 @@
+import src.mapper.*
 import src.personaje.*
 import src.objetos.*
 import src.posiciones.*
@@ -34,4 +35,7 @@ describe "Empujar una caja" {
         assert.throwsException({personaje.mover(derecha)})
         assert.equals([personaje], game.getObjectsIn(game.at(0,0)))
     }
+
+
 }
+
