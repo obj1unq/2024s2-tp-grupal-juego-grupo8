@@ -10,6 +10,18 @@ object nivel {
     const botones = #{}
     const ventiladores = #{}
 
+    method iniciar() {
+        self.validarInicio()
+        game.removeVisual(pantallaInicial)
+        game.removeTickEvent("inicio")
+        self.start()
+    }
+
+    method validarInicio() {
+        if (not game.hasVisual(pantallaInicial))
+            self.error("El juego ya inició")
+    }
+
     method start() {
         self.addVisual()
         self.onTick()

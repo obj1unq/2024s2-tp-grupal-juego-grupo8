@@ -12,6 +12,8 @@ object personaje {
         return "personaje_" + orientacion + ".png"
     }
 
+    method movimientos() { return historial.cantidadMovimientos() }
+
     method puedePresionar() { return true }
 
     method mover(direccion) {

@@ -4,11 +4,15 @@ import personaje.*
 import posiciones.*
 import objetos.*
 import nivel.*
+import extras.*
 
 program sokoban {
     game.cellSize(50)
-    
-    nivel.start()
+    game.height(13)
+    game.width(17)
+    game.addVisual(pantallaInicial)
+    game.onTick(1500, "inicio", {pantallaInicial.intermitencia()})
+    keyboard.enter().onPressDo({nivel.iniciar()})
     
     keyboard.up().onPressDo({personaje.mover(arriba)})
     keyboard.down().onPressDo({personaje.mover(abajo)})
