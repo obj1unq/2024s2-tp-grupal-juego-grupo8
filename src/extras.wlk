@@ -20,7 +20,7 @@ object reloj {
 
 object mapaTeclado {
     method image() = "teclas.png"
-    method position() = game.at(0,6)
+    method position() = game.at(0,8)
 }
 
 object fondoVictoria {
@@ -29,13 +29,11 @@ object fondoVictoria {
 }
 
 object textoVictoria {
-    method position() = game.at(8,8)
+    method position() = game.at(7,10)
 
     method text() {
-        return "Tus resultados: \n\n" + reloj.segundos() + " segundos. \n"
-            + personaje.movimientos() + " movimientos. \n\n\n" 
-            + "Pulsá la tecla SPACE para avanzar al siguiente nivel \n\n\n"
-            + "O la tecla R para reiniciar el nivel"
+        return "Tus resultados:   " + personaje.movimientos() + "  movimientos  en  "
+            + reloj.segundos() + "  segundos."
     }
 }
 
@@ -44,12 +42,17 @@ object pantallaInicial {
     method image() = "inicio_pantalla.png"
 
     method intermitencia() {
-        game.addVisual(imgInicio)
-        game.schedule(1000, {game.removeVisual(imgInicio)})
+        game.addVisual(imgIntermitente)
+        game.schedule(1000, {game.removeVisual(imgIntermitente)})
     }
 }
 
-object imgInicio {
-    method position() = game.at(0,2)
+object imgIntermitente {
+    method position() = game.at(2,3)
     method image() = "inicio_intermitencia.png"
+}
+
+object pantallaFinal {
+    method position() = game.at(0,0)
+    method image() = "fin_de_juego.png"
 }

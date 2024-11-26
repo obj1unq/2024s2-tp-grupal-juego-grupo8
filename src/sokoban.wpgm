@@ -1,27 +1,16 @@
 import wollok.game.*
-import historial.*
-import personaje.*
-import posiciones.*
-import objetos.*
 import gameManager.*
 import extras.*
 
 program sokoban {
     game.cellSize(50)
-    game.height(13)
-    game.width(17)
+    game.height(18)
+    game.width(20)
+
     game.addVisual(pantallaInicial)
     game.onTick(1500, "inicio", {pantallaInicial.intermitencia()})
-    keyboard.enter().onPressDo({gameManager.iniciar()})
-    
-    keyboard.up().onPressDo({personaje.mover(arriba)})
-    keyboard.down().onPressDo({personaje.mover(abajo)})
-    keyboard.right().onPressDo({personaje.mover(derecha)})
-    keyboard.left().onPressDo({personaje.mover(izquierda)})
 
-    keyboard.r().onPressDo({gameManager.reset()})
-    keyboard.n().onPressDo({gameManager.saltarASiguiente()}) // Trampa para mostrar todos los niveles sin pasarlos.
-    keyboard.z().onPressDo({historial.undo()})
+    gameManager.configurarControles()
 
     game.start()
 }
