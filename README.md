@@ -1,4 +1,4 @@
-# Nombre del juego (<- borrar y completar)
+# Sokoban!
 
 ## Equipo de desarrollo
 
@@ -6,19 +6,32 @@
 - Fabeiro, Leandro
 - Ruiz, Jeremias
 
+
 ## Capturas
+
+A AGREGAR MAÑANA CON LOS NIVELES HECHOS
+
 
 ![image](https://github.com/user-attachments/assets/0d110bbc-4271-4bef-83ca-cf3d37623b35)
 
+('<'img projectFolder="filename" width="NUMBERpx" height="NUMBERpx"'>') 
+(number son el alto y ancho width= ancho, height= alto)
 
-## Reglas de Juego / Instrucciones
 
-Ejemplo del juego Sokoban hecho con Wollok-Game. El personaje principal puede moverse hacia arriba, abajo, derecha o izquierda. 
-Si tiene una caja puede moverla si avanzando la caja tiene un lugar libre
+## Sobre el juego
+
+Sokoban es un juego de rompecabezas en el que el jugador empuja cajas hacia botones en un mapa delimitado por paredes. 
+En esta versión extendida, agregamos nuevos objetos para sumar complejidad:
+
+**Cajas de colores:** Cada caja debe ser desplazada al botón de su mismo color.
+
+**Ventiladores que succionan:** Objetos que atraen las cajas hacia ellos si están en su línea de acción.
+
+**Caminos de una sola dirección:** Baldosas que obligan al jugador a moverse en una dirección específica.
 
 
 ## Otros
 
-- Curso/Facultad
-- Versión de wollok
-- Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado
+- Facultad
+- Versión de Wollok: 4.0.0
+- Una vez terminado, no tenemos problemas en que el repositorio sea público.

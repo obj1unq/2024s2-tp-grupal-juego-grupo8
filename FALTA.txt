@@ -1,6 +1,0 @@
-TESTS!
-Hacer ventilador que empuja y un nivel así.
-Tres niveles por tipo de objeto
-¿Agregar sonidos para que se reproduzcan durante el juego?
- 
-* Agregar caminos con dirección  - Diego
