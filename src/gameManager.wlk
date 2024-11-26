@@ -5,35 +5,32 @@ import personaje.*
 import historial.*
 import mapper.*
 
-object nivel {
+object gameManager {
     var nivelActual = ntest
     const botones = #{}
     const ventiladores = #{}
 
+    // El 'if' es necesario por la asignación de la tecla. Si no estuviese se llamaría a 'start()' sin haber limpiado visuales y rompería.
     method iniciar() {
-        self.validarInicio()
-        game.removeVisual(pantallaInicial)
-        game.removeTickEvent("inicio")
-        self.start()
-    }
-
-    method validarInicio() {
-        if (not game.hasVisual(pantallaInicial))
-            self.error("El juego ya inició")
+        if (game.hasVisual(pantallaInicial)) {
+            game.removeVisual(pantallaInicial)
+            game.removeTickEvent("inicio")
+            self.start()
+        }
     }
 
     method start() {
-        self.addVisual()
-        self.onTick()
+        self.addVisuals()
+        self.addOnTicks()
     }
 
-    method addVisual() {
+    method addVisuals() {
         game.addVisual(reloj)
         game.addVisual(mapaTeclado)
         mapper.crearMapa(nivelActual)
     }
 
-    method onTick() {
+    method addOnTicks() {
         game.onTick(1000, "reloj", {reloj.pasarElTiempo()})
         game.onTick(3000, "ventilador", {ventiladores.forEach({v =>
             try {
@@ -45,7 +42,12 @@ object nivel {
         })})
     }
 
-    
+    method reset() {
+        self.clear()
+        reloj.segundos(0)
+        self.start()
+    }
+
     method agregarBoton(boton) {
         /* Es necesario guardar los botones en una colección 
         para comprobar el fin del juego.*/
@@ -78,12 +80,6 @@ object nivel {
         keyboard.space().onPressDo({self.nextLevel()})
     }
 
-    method reset() {
-        self.clear()
-        reloj.segundos(0)
-        self.start()
-    }
-
     method clear() {
         game.allVisuals().forEach({visual => game.removeVisual(visual)})
         botones.clear()
@@ -92,21 +88,19 @@ object nivel {
         historial.clear()
     }
 
-    
+    // El 'if' es necesario. Si no está se puede pasar al siguiente nivel sin haber terminado el actual.
     method nextLevel() {
-        self.validarFinDeNivel()
-        nivelActual = nivelActual.siguiente()
-        self.reset()
+        if (game.hasVisual(fondoVictoria)) {
+            nivelActual.iniciarSiguiente() // .iniciar() -> hace nivel.reset, salvo por el ultimo que devuelve la pantalla final.
+        }
     }
 
-    method validarFinDeNivel() {
-        if (not game.hasVisual(fondoVictoria))
-            self.error("No se puede pasar al siguiente nivel si no se ganó el actual.")
+    method pasarANivel(nivel) {
+        nivelActual = nivel
     }
 
+    // Método sin 'if' para poder saltar de nivel. 
     method saltarASiguiente() {
-        nivelActual = nivelActual.siguiente()
-        self.reset()
+        nivelActual.iniciarSiguiente()
     }
 }
-

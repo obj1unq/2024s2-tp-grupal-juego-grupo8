@@ -1,5 +1,5 @@
+import wollok.game.*
 import personaje.*
-
 object reloj {
     var property segundos = 0
     method image() = "reloj.png"

@@ -4,20 +4,31 @@ import personaje.*
 import posiciones.*
 import tablero.*
 
-//BOTON
-class Boton {
+class Atravesable {
+
     const property position
+
+    method esAtravesable() { return true }
+
+    method esDesplazable() { return false }
+
+    method colisionar(direccion) {  }
+
+    method hayObjetoEncima() {
+        return tablero.objetosEn(position).size() > 1 // > 1 ya que en la colección está el propio objeto
+    }
+ 
+}
+
+//BOTON
+class Boton inherits Atravesable {
 
     method image() {
             return "boton_" + self.estado().color() + ".png"
     }
 
     method estado() {
-        return if (self.estaPresionado()) presionado else noPresionado
-    }
-
-    method estaPresionado() {
-        return game.getObjectsIn(position).any({obj => obj.puedePresionar()})
+        return if (self.hayObjetoEncima()) presionado else noPresionado
     }
 
     method objetoQuePresiona() {
@@ -25,18 +36,8 @@ class Boton {
         return game.uniqueCollider(self)
     }
 
-    method colisionar(direccion) {  }
-
-    method esAtravesable() { return true }
-
-    method esDesplazable() { return false }
-
-    method puedePresionar() { return false }
-
-    method poseeOrientacion() { return false }
-
     method hayCajaEnBoton() {
-        return self.estaPresionado() and self.objetoQuePresiona().esDesplazable()
+        return self.hayObjetoEncima() and self.objetoQuePresiona().esDesplazable()
     }
 
 }
@@ -67,63 +68,8 @@ class BotonDeColor inherits Boton {
     }
 }
 
-//CAJA
-class Caja {
-    var property position
-
-    method image() {
-        return "caja_normal.png"
-    }
-
-    method poseeOrientacion() { return false }
-
-    method esAtravesable() { return false }
-
-    method esDesplazable() { return true }
-
-    method puedePresionar() { return true }
-
-    method colisionar(direccion) { 
-        self.desplazar(direccion)
-    }
-
-    method desplazar(direccion) {
-        const siguiente = direccion.siguiente(position)
-        self.validarDesplazamiento(siguiente)
-        historial.registrarMovimiento(self)
-        position = siguiente
-    }
-
-    method validarDesplazamiento(posicion) {
-        tablero.validarLimites(posicion)
-        tablero.validarAtravesables(posicion)
-        tablero.validarOrientacion(posicion)
-    }
-    
-    method aceptaColor(color) { return true } 
-}
-
-class CajaDeColor inherits Caja {
-    const color
-
-    override method image() {
-        return "caja_" + color + ".png"
-    }
-
-    method color() { return color }
-
-    override method esDesplazable() {
-        return true
-    }
-
-    override method aceptaColor(colorBoton) {
-        return self.color() == colorBoton
-    }
-}
-
 //VENTILADORES
-class Ventilador {
-    const property position
+class Ventilador inherits Atravesable {
     var encendido = false
 
     method image() {
@@ -142,13 +88,11 @@ class Ventilador {
         encendido = false
     }
 
-    method colisionar(direccion) {  }
-
     method atraer() {
         self.validarAtraer()
         self.encender()
         game.schedule(1000, {self.apagar()})
-        if (self.hayObjetosVecinos()) self.objetosVecinos().anyOne().position(position)
+        self.atraerSiHayDesplazable()
     }
 
     method validarAtraer() {
@@ -156,15 +100,15 @@ class Ventilador {
             self.error("El ventilador no puede atraer. Ya tiene un objeto.")
     }
 
-    method hayObjetoEncima() {
-        return game.getObjectsIn(position).size() > 1 // > 1 ya que está el propio ventilador
+    method atraerSiHayDesplazable() {
+        if (self.haydesplazablesVecinos()) self.desplazablesVecinos().anyOne().position(position)
     }
 
-    method hayObjetosVecinos() {
-        return not self.objetosVecinos().isEmpty()
+    method haydesplazablesVecinos() {
+        return not self.desplazablesVecinos().isEmpty()
     }
 
-    method objetosVecinos() {
+    method desplazablesVecinos() {
         const objVec = []
         objVec.addAll(self.objetoDesplazableVecino(arriba))
         objVec.addAll(self.objetoDesplazableVecino(abajo))
@@ -174,14 +118,53 @@ class Ventilador {
     }
 
     method objetoDesplazableVecino(direccion) {
-        return game.getObjectsIn(direccion.siguiente(position)).filter({obj => obj.esDesplazable()})
+        return tablero.objetosEn(direccion.siguiente(position)).filter({obj => obj.esDesplazable()})
+    }
+}
+
+//CAJA
+class Caja {
+    var property position
+
+    method image() {
+        return "caja_normal.png"
     }
 
-    method esAtravesable() { return true }
+    method esAtravesable() { return false }
 
-    method esDesplazable() { return false }
+    method esDesplazable() { return true }
 
-    method poseeOrientacion() { return false }
+    method colisionar(direccion) { 
+        self.desplazar(direccion)
+    }
+
+    method desplazar(direccion) {
+        const siguiente = direccion.siguiente(position)
+        self.validarDesplazamiento(siguiente)
+        historial.registrarMovimiento(self)
+        position = siguiente
+    }
+
+    method validarDesplazamiento(posicion) {
+        tablero.validarLimites(posicion)
+        tablero.validarAtravesables(posicion)
+    }
+    
+    method aceptaColor(color) { return true } 
+}
+
+class CajaDeColor inherits Caja {
+    const color
+
+    override method image() {
+        return "caja_" + color + ".png"
+    }
+
+    method color() { return color }
+
+    override method aceptaColor(colorBoton) {
+        return self.color() == colorBoton
+    }
 }
 
 // MURO
@@ -198,9 +181,6 @@ class Muro {
     method esAtravesable() { return false }
 
     method esDesplazable() { return false }
-
-    method poseeOrientacion() { return false }
-
 }
 
 // CAMINOS CON DIRECCION
@@ -213,9 +193,12 @@ class CaminoConDireccion {
         return "camino_" + orientacion.toString() + ".png"
     }
 
-    method colisionar(direccion) { }
+    method colisionar(direccion) { self.validarOrientacion(direccion) }
 
-    method poseeOrientacion() { return true }
+    method validarOrientacion(direccion) {
+        if (orientacion != direccion)
+            self.error("No se puede atravesar el camino desde esa dirección.")
+    }
 
     method esAtravesable() { return true }
 

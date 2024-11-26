@@ -1,7 +1,7 @@
 import wollok.game.*
 import objetos.*
 import personaje.*
-import nivel.*
+import gameManager.*
 import posiciones.*
 object mapper {
 
@@ -33,25 +33,50 @@ object mapper {
 
 }
 
+// NIVELES
+
+/*
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],         
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],    
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],         
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]
+*/
+
+/* method iniciarSiguiente para el Nivel Final:
+    gameManager.clear()
+    *AÑADIR VISUAL DE VICTORIA*
+    game.schedule(500, {game.stop})
+*/
+
 object n1 {
 
     const property tablero = 
     [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],     
      [_,_,_,_,_,m,m,m,m,m,m,m,_,_,_,_,_],     
-     [_,_,_,_,_,m,bz,_,cz,_,m,m,_,_,_,_,_],     
-     [_,_,_,_,_,m,m,_,cm,_,bm,m,_,_,_,_,_],     
-     [_,_,_,_,_,m,bv,_,cv,_,m,m,_,_,_,_,_],     
-     [_,_,_,_,_,m,m,_,cn,p,bn,m,_,_,_,_,_],
-     [_,_,_,_,_,m,bm,_,cm,_,m,m,_,_,_,_,_],
-     [_,_,_,_,_,m,m,_,cz,_,bz,m,_,_,_,_,_],
+     [_,_,_,_,_,m,b,_,c,_,m,m,_,_,_,_,_],     
+     [_,_,_,_,_,m,m,_,cz,_,bn,m,_,_,_,_,_],     
+     [_,_,_,_,_,m,bm,_,cv,_,m,m,_,_,_,_,_],     
+     [_,_,_,_,_,m,m,_,cn,p,bz,m,_,_,_,_,_],
+     [_,_,_,_,_,m,bv,_,cm,_,m,m,_,_,_,_,_],
+     [_,_,_,_,_,m,m,_,c,_,b,m,_,_,_,_,_],
      [_,_,_,_,_,m,m,m,m,m,m,m,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],     
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]         
     ].reverse()
 
-    method siguiente() {
-        return n2
+    method iniciarSiguiente() {
+        gameManager.pasarANivel(n2)
+        gameManager.reset()
     }
 }
 
@@ -73,25 +98,11 @@ object n2 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]         
     ].reverse()
 
-    method siguiente() {
-        return n3
+    method iniciarSiguiente() {
+        gameManager.pasarANivel(n3)
+        gameManager.reset()
     }
 }
-/*
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],         
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],    
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],         
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]
-*/
 
 object n3 {
     const property tablero = 
@@ -110,8 +121,9 @@ object n3 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]        
     ].reverse()
 
-    method siguiente() {
-        return n4
+    method iniciarSiguiente() {
+        gameManager.pasarANivel(n4)
+        gameManager.reset()
     }
 }
 
@@ -133,8 +145,9 @@ object n4 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]      
     ].reverse()
 
-    method siguiente() {
-        return n5
+    method iniciarSiguiente() {
+        gameManager.pasarANivel(n5)
+        gameManager.reset()
     }
 }
 
@@ -155,8 +168,9 @@ object n5 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]  
     ].reverse()
 
-    method siguiente() {
-        return n1
+    method iniciarSiguiente() {
+        gameManager.pasarANivel(ntest)
+        gameManager.reset()
     }
 }
 
@@ -169,8 +183,8 @@ object ntest {
      [_,_,_,m,m,m,m,m,m,m,m,m,_,_,_,_,_],
      [_,_,_,m,_,_,b,_,_,m,m,m,_,_,_,_,_],
      [_,_,_,m,_,_,m,_,_,_,m,m,_,_,_,_,_],    
-     [_,_,_,m,_,caa,m,_,b,c,_,m,_,_,_,_,_],
-     [_,_,_,m,_,_,p,c,_,_,_,m,_,_,_,_,_],
+     [_,_,_,m,_,_,m,_,b,c,_,m,_,_,_,_,_],
+     [_,_,_,m,_,_,cad,c,p,_,_,m,_,_,_,_,_],
      [_,_,_,m,_,_,m,_,_,m,m,m,_,_,_,_,_],         
      [_,_,_,m,m,m,m,m,m,m,m,m,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
@@ -178,8 +192,9 @@ object ntest {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]        
     ].reverse()
 
-    method siguiente() {
-        return n1
+    method iniciarSiguiente() {
+        gameManager.pasarANivel(n1)
+        gameManager.reset()
     }
 }
 
@@ -202,7 +217,7 @@ object m {
 
 object v {
     method configurar(position) {
-        nivel.agregarVentilador(new Ventilador(position = position))
+        gameManager.agregarVentilador(new Ventilador(position = position))
     }
 }
 
@@ -210,31 +225,31 @@ object v {
 
 object b {
     method configurar(position) {
-        nivel.agregarBoton(new Boton(position = position))
+        gameManager.agregarBoton(new Boton(position = position))
     }
 }
 
 object bz {
     method configurar(position) {
-        nivel.agregarBoton(new BotonDeColor(position = position, color = "azul"))
+        gameManager.agregarBoton(new BotonDeColor(position = position, color = "azul"))
     }
 }
 
 object bm {
     method configurar(position) {
-        nivel.agregarBoton(new BotonDeColor(position = position, color = "amarillo"))
+        gameManager.agregarBoton(new BotonDeColor(position = position, color = "amarillo"))
     }
 }
 
 object bn {
     method configurar(position) {
-        nivel.agregarBoton(new BotonDeColor(position = position, color = "negro"))
+        gameManager.agregarBoton(new BotonDeColor(position = position, color = "negro"))
     }
 }
 
 object bv {
     method configurar(position) {
-        nivel.agregarBoton(new BotonDeColor(position = position, color = "violeta"))
+        gameManager.agregarBoton(new BotonDeColor(position = position, color = "violeta"))
     }
 }
 
@@ -271,6 +286,7 @@ object cv {
 }
 
 // Caminos con direccion, arriba, abajo, derecha, izquierda.
+
 object caa {
     method configurar(position) {
        game.addVisual(new CaminoConDireccion(position = position, orientacion = arriba))

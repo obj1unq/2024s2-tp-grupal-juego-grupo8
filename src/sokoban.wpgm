@@ -3,7 +3,7 @@ import historial.*
 import personaje.*
 import posiciones.*
 import objetos.*
-import nivel.*
+import gameManager.*
 import extras.*
 
 program sokoban {
@@ -12,15 +12,15 @@ program sokoban {
     game.width(17)
     game.addVisual(pantallaInicial)
     game.onTick(1500, "inicio", {pantallaInicial.intermitencia()})
-    keyboard.enter().onPressDo({nivel.iniciar()})
+    keyboard.enter().onPressDo({gameManager.iniciar()})
     
     keyboard.up().onPressDo({personaje.mover(arriba)})
     keyboard.down().onPressDo({personaje.mover(abajo)})
     keyboard.right().onPressDo({personaje.mover(derecha)})
     keyboard.left().onPressDo({personaje.mover(izquierda)})
 
-    keyboard.r().onPressDo({nivel.reset()})
-    keyboard.n().onPressDo({nivel.saltarASiguiente()}) // Trampa para mostrar todos los niveles sin pasarlos.
+    keyboard.r().onPressDo({gameManager.reset()})
+    keyboard.n().onPressDo({gameManager.saltarASiguiente()}) // Trampa para mostrar todos los niveles sin pasarlos.
     keyboard.z().onPressDo({historial.undo()})
 
     game.start()
