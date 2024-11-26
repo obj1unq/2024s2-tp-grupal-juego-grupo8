@@ -4,6 +4,8 @@ import personaje.*
 object historial {
     const registros = []
 
+    method cantidadMovimientos() { return registros.size() }
+
     method clear() {
         registros.clear()
     }

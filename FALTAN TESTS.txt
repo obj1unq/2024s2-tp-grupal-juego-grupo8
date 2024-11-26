@@ -1,0 +1,8 @@
+TESTS!
+
+cambiar fondoVictoria por pantallaFinNivel. Agregar como visual: 
+    ¡Nivel superado! / Pulsa SPACE para avanzar / o la tecla R para repetir el nivel.
+    A eso sumarle en texto:
+      "Tus resultados:  " + personaje.movimientos() + " movimientos en " + reloj.segundos() + " segundos." 
+
+agregar pantallaFinDeJuego

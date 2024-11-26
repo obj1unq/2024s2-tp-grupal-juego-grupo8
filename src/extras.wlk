@@ -1,3 +1,5 @@
+import wollok.game.*
+import personaje.*
 object reloj {
     var property segundos = 0
     method image() = "reloj.png"
@@ -27,11 +29,27 @@ object fondoVictoria {
 }
 
 object textoVictoria {
-    method position() = game.at(6,8)
+    method position() = game.at(8,8)
 
     method text() {
-        return "Lo conseguiste en ¡" + reloj.segundos() + " segundos! \n\n\n" 
+        return "Tus resultados: \n\n" + reloj.segundos() + " segundos. \n"
+            + personaje.movimientos() + " movimientos. \n\n\n" 
             + "Pulsá la tecla SPACE para avanzar al siguiente nivel \n\n\n"
             + "O la tecla R para reiniciar el nivel"
     }
+}
+
+object pantallaInicial {
+    method position() = game.at(0,0)
+    method image() = "inicio_pantalla.png"
+
+    method intermitencia() {
+        game.addVisual(imgInicio)
+        game.schedule(1000, {game.removeVisual(imgInicio)})
+    }
+}
+
+object imgInicio {
+    method position() = game.at(0,2)
+    method image() = "inicio_intermitencia.png"
 }
