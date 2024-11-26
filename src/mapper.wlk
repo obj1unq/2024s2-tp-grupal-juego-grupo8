@@ -123,7 +123,7 @@ object n3 {
     ].reverse()
 
     method siguiente() {
-        return n3
+        return n4
     }
 }
 /*
@@ -160,7 +160,7 @@ object n4 {
     ].reverse()
 
     method siguiente() {
-        return n4
+        return n5
     }
 }
 
@@ -183,7 +183,7 @@ object n5 {
     ].reverse()
 
     method siguiente() {
-        return n5
+        return n6
     }
 }
 
@@ -205,7 +205,7 @@ object n6 {
     ].reverse()
 
     method siguiente() {
-        return n1
+        return n7
     }
 }
 
@@ -221,6 +221,28 @@ object n7 {
      [_,_,_,m,_,_,m,_,_,m,m,m,_,_,_,_,_],         
      [_,_,_,m,m,m,m,m,m,m,m,m,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]  
+    ].reverse()
+
+    method siguiente() {
+        return n8
+    }
+}
+
+
+object n8 {
+    const property tablero = 
+    [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],         
+     [_,_,_,_,_,_,_,_,_,_,_,m,m,m,_,_,_],
+     [_,_,m,m,m,m,m,m,m,m,m,_,_,m,_,_,_],
+     [_,_,m,m,p,_,_,m,_,_,_,_,_,_,m,_,_],
+     [_,_,m,m,_,cv,_,cad,_,_,_,m,_,_,m,_,_],    
+     [_,_,m,m,caa,m,m,m,m,m,_,_,_,_,m,_,_],
+     [_,_,m,m,_,_,_,cai,v,_,_,_,_,_,m,_,_],
+     [_,_,m,m,_,v,bv,m,_,_,cai,_,_,_,m,_,_],         
+     [_,_,m,m,m,m,m,m,m,m,m,m,m,m,m,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]  
     ].reverse()

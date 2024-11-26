@@ -6,7 +6,7 @@ import historial.*
 import mapper.*
 
 object gameManager {
-    var nivelActual = ntest
+    var nivelActual = n8
     const botones = #{}
     const ventiladores = #{}
 
