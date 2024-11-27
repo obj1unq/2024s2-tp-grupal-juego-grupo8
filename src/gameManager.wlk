@@ -1,4 +1,5 @@
 import wollok.game.*
+import posiciones.*
 import objetos.*
 import extras.*
 import personaje.*
@@ -6,9 +7,24 @@ import historial.*
 import mapper.*
 
 object gameManager {
-    var nivelActual = n8
+    var nivelActual = n1
     const botones = #{}
     const ventiladores = #{}
+
+    method configurarControles() {
+        keyboard.enter().onPressDo({self.iniciar()})
+    
+        keyboard.up().onPressDo({personaje.mover(arriba)})
+        keyboard.down().onPressDo({personaje.mover(abajo)})
+        keyboard.right().onPressDo({personaje.mover(derecha)})
+        keyboard.left().onPressDo({personaje.mover(izquierda)})
+
+        keyboard.r().onPressDo({self.reset()})
+        keyboard.z().onPressDo({historial.undo()})
+        keyboard.space().onPressDo({self.nextLevel()})
+
+        keyboard.n().onPressDo({self.saltarASiguiente()}) // Trampa para mostrar todos los niveles sin pasarlos.
+    }
 
     // El 'if' es necesario por la asignación de la tecla. Si no estuviese se llamaría a 'start()' sin haber limpiado visuales y rompería.
     method iniciar() {
@@ -77,7 +93,6 @@ object gameManager {
         game.removeTickEvent("ventilador")
         game.addVisual(fondoVictoria)
         game.addVisual(textoVictoria)
-        keyboard.space().onPressDo({self.nextLevel()})
     }
 
     method clear() {
@@ -97,6 +112,7 @@ object gameManager {
 
     method pasarANivel(nivel) {
         nivelActual = nivel
+        self.reset()
     }
 
     // Método sin 'if' para poder saltar de nivel. 
