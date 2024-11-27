@@ -110,7 +110,7 @@ object gameManager {
     // El 'if' es necesario. Si no está se puede pasar al siguiente nivel sin haber terminado el actual.
     method nextLevel() {
         if (game.hasVisual(fondoVictoria)) {
-            nivelActual.iniciarSiguiente() // .iniciar() -> hace nivel.reset, salvo por el ultimo que devuelve la pantalla final.
+            nivelActual.iniciarSiguiente()
         }
     }
 
