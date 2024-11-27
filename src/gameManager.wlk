@@ -89,8 +89,7 @@ object gameManager {
     }
 
     method finNivel() {
-        game.removeTickEvent("reloj")
-        game.removeTickEvent("ventilador")
+        self.removerTickEvents()
         game.addVisual(fondoVictoria)
         game.addVisual(textoVictoria)
     }
@@ -101,6 +100,11 @@ object gameManager {
         ventiladores.clear()
         mapper.clear()
         historial.clear()
+    }
+
+    method removerTickEvents() {
+        game.removeTickEvent("reloj")
+        game.removeTickEvent("ventilador")
     }
 
     // El 'if' es necesario. Si no está se puede pasar al siguiente nivel sin haber terminado el actual.
@@ -117,6 +121,7 @@ object gameManager {
 
     // Método sin 'if' para poder saltar de nivel. 
     method saltarASiguiente() {
+        self.removerTickEvents()
         nivelActual.iniciarSiguiente()
     }
 }
