@@ -185,22 +185,18 @@ class Muro {
 
 // CAMINOS CON DIRECCION
 
-class CaminoConDireccion {
-    var property position 
+class CaminoConDireccion inherits Atravesable {
     var property orientacion
 
     method image () {
         return "camino_" + orientacion.toString() + ".png"
     }
 
-    method colisionar(direccion) { self.validarOrientacion(direccion) }
+    override method colisionar(direccion) { self.validarOrientacion(direccion) }
 
     method validarOrientacion(direccion) {
         if (orientacion != direccion)
             self.error("No se puede atravesar el camino desde esa dirección.")
     }
 
-    method esAtravesable() { return true }
-
-    method esDesplazable() { return false} 
 }
