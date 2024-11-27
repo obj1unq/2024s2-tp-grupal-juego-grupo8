@@ -32,7 +32,7 @@ describe "Mover hasta límites" {
     }
 }
 
-describe "Orientación personaje" {
+describe "Orientación del personaje" {
 
     method initialize() {
         game.clear()
@@ -85,14 +85,14 @@ describe "Personaje con caminosConDireccion" {
         game.height(3)
         game.addVisual(personaje)
     }
-    test "Personaje puede atravesar un caminoConDireccion de == orientacion" {
+    test "Personaje puede atravesar un caminoConDireccion de igual orientacion" {
         personaje.position(game.at(0,0))
         const caminoArriba = new CaminoConDireccion(position=game.at(0,1), orientacion = arriba)
         game.addVisual(caminoArriba)
         personaje.mover(arriba)
         assert.equals([personaje, caminoArriba], game.getObjectsIn(game.at(0,1)))
     }
-    test "Personaje NO puede atravesar un caminoConDireccion de != orientacion" {
+    test "Personaje NO puede atravesar un caminoConDireccion de distinta orientacion" {
         personaje.position(game.at(0,0))
         const caminoDerecha = new CaminoConDireccion(position=game.at(0,1), orientacion = derecha)
         game.addVisual(caminoDerecha)
