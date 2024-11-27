@@ -9,9 +9,10 @@
 
 ## Capturas
 
-AGREGAR FOTO DE PANTALLA INICIAL Y DEL NIVEL MAS GRANDE.
+<img src="assets/readme_inicio.png" width="650" height="650">
 
-![image](https://github.com/user-attachments/assets/0d110bbc-4271-4bef-83ca-cf3d37623b35)
+<img src="assets/readme_preview.png" width="650" height="650">
+
 
 ## Sobre el juego
 
@@ -23,6 +24,11 @@ En esta versión extendida, agregamos nuevos objetos para sumar complejidad:
 <img src="assets/ventilador_encendido.png" width="25" height="25"> **Ventiladores que succionan:** Objetos que atraen las cajas hacia ellos si están en su línea de acción.
 
 <img src="assets/camino_derecha.png" width="25" height="25"> **Caminos de una sola dirección:** Baldosas que obligan al jugador a moverse en una dirección específica.
+
+
+## Controles del juego
+
+<img src="assets/readme_controles.png" width="218" height="400">
 
 
 ## Otros

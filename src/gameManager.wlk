@@ -7,7 +7,7 @@ import historial.*
 import mapper.*
 
 object gameManager {
-    var nivelActual = n8
+    var nivelActual = n1
     const botones = #{}
     const ventiladores = #{}
 
@@ -112,6 +112,7 @@ object gameManager {
 
     method pasarANivel(nivel) {
         nivelActual = nivel
+        self.reset()
     }
 
     // Método sin 'if' para poder saltar de nivel. 
