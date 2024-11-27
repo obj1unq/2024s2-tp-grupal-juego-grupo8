@@ -21,7 +21,7 @@ describe "Ventilador" {
         assert.equals([caja], game.getObjectsIn(game.at(0,1)))
     }
 
-        test "Ventilador NO atrae al personaje" {
+    test "Ventilador NO atrae al personaje" {
         game.addVisual(personaje)
         personaje.position(game.at(1,0))
         const ventilador = new Ventilador(position = game.at(1,1))
@@ -41,7 +41,7 @@ describe "Ventilador" {
     }
 
 
-        test "Ventilador encendido atrae la caja" {
+    test "Ventilador encendido atrae la caja" {
         const caja = new Caja(position= game.at(0,1))
         game.addVisual(caja)
         const ventilador = new Ventilador(position = game.at(1,1))
@@ -50,7 +50,7 @@ describe "Ventilador" {
         assert.equals([caja, ventilador], game.getObjectsIn(game.at(1,1)))
     }
 
-        test "Ventilador solo atrae una caja" {
+    test "Ventilador solo atrae una caja" {
         const caja1 = new Caja(position= game.at(0,1))
         const caja2 = new Caja(position= game.at(1,0))
         game.addVisual(caja1)
@@ -59,6 +59,7 @@ describe "Ventilador" {
         game.addVisual(ventilador)
         ventilador.atraer()
         assert.equals([caja1, ventilador], game.getObjectsIn(game.at(1,1)))
+        assert.throwsException({ventilador.atraer()})
     }
 
 }
