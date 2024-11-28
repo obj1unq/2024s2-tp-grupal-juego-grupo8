@@ -35,7 +35,15 @@ object mapper {
 
 }
 
-object n1 {
+class Nivel {
+    const siguienteNivel
+
+    method iniciarSiguiente() {
+        gameManager.pasarANivel(siguienteNivel)
+    }
+}
+
+object n1 inherits Nivel(siguienteNivel = n2) {
 
     const property tablero = 
     [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
@@ -58,13 +66,9 @@ object n1 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]        
     ].reverse()
-
-    method iniciarSiguiente() {
-        gameManager.pasarANivel(n2)
-    }
 }
 
-object n2 {
+object n2 inherits Nivel(siguienteNivel = n3) {
 
     const property tablero = 
     [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
@@ -86,14 +90,10 @@ object n2 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]
     ].reverse()
-
-    method iniciarSiguiente() {
-        gameManager.pasarANivel(n3)
-    }
 }
 
 
-object n3 {
+object n3 inherits Nivel(siguienteNivel = n4) {
 
     const property tablero = 
     [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
@@ -116,13 +116,9 @@ object n3 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]         
     ].reverse()
-
-    method iniciarSiguiente() {
-        gameManager.pasarANivel(n4)
-    }
 }
 
-object n4 {
+object n4 inherits Nivel(siguienteNivel = n5) {
     const property tablero = 
     [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
@@ -144,13 +140,9 @@ object n4 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]        
     ].reverse()
-
-    method iniciarSiguiente() {
-        gameManager.pasarANivel(n5)
-    }
 }
 
-object n5 {
+object n5 inherits Nivel(siguienteNivel = n6) {
     const property tablero = 
     [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
@@ -171,13 +163,9 @@ object n5 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]         
     ].reverse()
-
-    method iniciarSiguiente() {
-        gameManager.pasarANivel(n6)
-    }
 }
 
-object n6 {
+object n6 inherits Nivel(siguienteNivel = n7) {
     const property tablero = 
     [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
@@ -198,13 +186,9 @@ object n6 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]  
     ].reverse()
-
-    method iniciarSiguiente() {
-        gameManager.pasarANivel(n7)
-    }
 }
 
-object n7 {
+object n7 inherits Nivel(siguienteNivel = n8) {
     const property tablero = 
     [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
@@ -226,13 +210,9 @@ object n7 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]      
     ].reverse()
-
-    method iniciarSiguiente() {
-        gameManager.pasarANivel(n8)
-    }
 }
 
-object n8 {
+object n8 inherits Nivel(siguienteNivel = n9) {
 
     const property tablero = 
     [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
@@ -254,14 +234,10 @@ object n8 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]  
     ].reverse()
-
-    method iniciarSiguiente() {
-        gameManager.pasarANivel(n9)
-    }
 }
 
 
-object n9 {
+object n9 inherits Nivel(siguienteNivel = n10) {
     const property tablero = 
     [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
@@ -283,14 +259,9 @@ object n9 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]  
     ].reverse()
-    
-
-    method iniciarSiguiente() {
-        gameManager.pasarANivel(n10)
-    }
 }
 
-object n10 {
+object n10 inherits Nivel(siguienteNivel = n1) {
     const property tablero = 
     [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,m,m,m,m,m,m,m,m,m,m,m,m,m,m,m,_,_],
@@ -312,7 +283,7 @@ object n10 {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]
     ].reverse()
 
-    method iniciarSiguiente() {
+    override method iniciarSiguiente() {
         gameManager.clear()
         game.addVisual(pantallaFinal)
         game.schedule(500, {game.stop()})
