@@ -1,0 +1,16 @@
+import wollok.game.*
+import gameManager.*
+import extras.*
+
+program sokoban {
+    game.cellSize(50)
+    game.height(18)
+    game.width(20)
+
+    game.addVisual(pantallaInicial)
+    game.onTick(1500, "inicio", {pantallaInicial.intermitencia()})
+
+    gameManager.configurarControles()
+
+    game.start()
+}

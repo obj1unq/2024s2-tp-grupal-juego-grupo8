@@ -1,0 +1,65 @@
+import src.personaje.*
+import src.posiciones.*
+import src.objetos.*
+
+
+describe "Ventilador" {
+
+    method initialize() {
+        game.clear()
+        game.width(3)
+        game.height(3)
+        
+    }
+
+    test "Ventilador apagado NO atrae la caja" {
+        const ventilador = new Ventilador( position = game.at(1,1))
+        game.addVisual(ventilador)
+        ventilador.apagar()
+        const caja = new Caja(position= game.at(0, 1))
+        game.addVisual(caja)
+        assert.equals([caja], game.getObjectsIn(game.at(0,1)))
+    }
+
+    test "Ventilador NO atrae al personaje" {
+        game.addVisual(personaje)
+        personaje.position(game.at(1,0))
+        const ventilador = new Ventilador(position = game.at(1,1))
+        game.addVisual(ventilador)
+        ventilador.atraer()
+        assert.equals([ventilador], game.getObjectsIn(game.at(1,1)))
+    }
+
+    test "Ventilador NO atrae al muro" {
+        const muro = new Muro(position=game.at(1,0))
+        game.addVisual(muro)
+        personaje.position(game.at(1,0))
+        const ventilador = new Ventilador(position = game.at(1,1))
+        game.addVisual(ventilador)
+        ventilador.atraer()
+        assert.equals([ventilador], game.getObjectsIn(game.at(1,1)))
+    }
+
+
+    test "Ventilador encendido atrae la caja" {
+        const caja = new Caja(position= game.at(0,1))
+        game.addVisual(caja)
+        const ventilador = new Ventilador(position = game.at(1,1))
+        game.addVisual(ventilador)
+        ventilador.atraer()
+        assert.equals([caja, ventilador], game.getObjectsIn(game.at(1,1)))
+    }
+
+    test "Ventilador solo atrae una caja" {
+        const caja1 = new Caja(position= game.at(0,1))
+        const caja2 = new Caja(position= game.at(1,0))
+        game.addVisual(caja1)
+        game.addVisual(caja2)
+        const ventilador = new Ventilador(position = game.at(1,1))
+        game.addVisual(ventilador)
+        ventilador.atraer()
+        assert.equals([caja1, ventilador], game.getObjectsIn(game.at(1,1)))
+        assert.throwsException({ventilador.atraer()})
+    }
+
+}
